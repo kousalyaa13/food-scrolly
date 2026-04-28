@@ -371,125 +371,8 @@
   </div>
 </section>
 
-
-
 <!-- ══════════════════════════════════════════════
-     SECTION 5 · EXPLORE FOODS
-══════════════════════════════════════════════ -->
-<!--
-<section id="explore" class="explore-section">
-  <div class="section-wrap">
-    <div class="section-head slide-up">
-      <h2 class="section-title">🔍 Explore Foods</h2>
-      <p class="section-sub">Select a food to see its full nutrition breakdown</p>
-      <div class="tip-float">
-        <span class="bulb">💡</span>
-        <span>All values are<br>per 100 grams.</span>
-      </div>
-    </div>
-    <div class="explore-layout">
-      <div class="explore-cats slide-left">
-        <h4 class="col-label">1. CHOOSE A CATEGORY</h4>
-        <div id="catFilterList" class="cat-filter-list"></div>
-      </div>
-      <div class="explore-foods-col slide-up">
-        <h4 class="col-label">2. CHOOSE A FOOD</h4>
-        <div class="search-box">
-          <input type="text" id="foodSearch" placeholder="Search food..." oninput="filterFoods()">
-          <span>🔍</span>
-        </div>
-        <div id="foodListEl" class="food-list-panel"></div>
-      </div>
-      <div class="explore-detail slide-right">
-        <h4 class="col-label">3. FOOD NUTRITION DETAILS</h4>
-        <div class="detail-card">
-          <div class="detail-top">
-            <div class="detail-emoji-box" id="detailEmoji">🍴</div>
-            <div class="detail-info">
-              <div class="detail-name" id="detailName">Select a food</div>
-              <div class="detail-kcal" id="detailKcal">— kcal</div>
-              <div class="detail-unit">per 100g</div>
-              <p class="detail-desc" id="detailDesc">Choose a category and click any food item to see its full nutrition breakdown.</p>
-            </div>
-          </div>
-          <div class="breakdown-section">
-            <div class="breakdown-head">
-              NUTRIENT BREAKDOWN (per 100g)
-              <span class="dv-label">% Daily Value*</span>
-            </div>
-            <div id="breakdownRows"></div>
-            <p class="dv-note">*% Daily Value based on a 2,000 calorie diet.</p>
-          </div>
-          <div class="dyk-box" id="dykBox">
-            <span class="star-icon">⭐</span>
-            <div>
-              <strong>DID YOU KNOW?</strong>
-              <p id="dykText">Select a food to learn an interesting fact!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
-
-<!-- ══════════════════════════════════════════════
-     SECTION 6 · EXPECTATION vs REALITY
-══════════════════════════════════════════════ -->
-<!--
-<section id="expectation" class="expectation-section">
-  <div class="section-wrap">
-    <div class="section-head centered-head slide-up">
-      <h2 class="exp-title">THE <span class="green-text">EXPECTATION</span> vs. THE <span class="red-text">REALITY</span></h2>
-      <p class="section-sub">Food labels tell a story. <u>Data</u> tells the truth.</p>
-      <div class="tip-float tip-float-inline">
-        <span class="bulb">💡</span>
-        <span>All values are<br>per 100 grams<br>of food.</span>
-      </div>
-    </div>
-
-    <div class="food-picker slide-up">
-      <span>Focus on:</span>
-      <select id="realitySelect" onchange="renderReality()">
-        <option value="">Loading foods…</option>
-      </select>
-    </div>
-
-    <div class="evr-layout">
-      <div class="evr-left slide-left">
-        <div class="evr-header green-evr-h">WHAT WE THINK</div>
-        <p class="evr-sub">Looks <span class="green-text"><u>healthy</u></span>. Good choice!</p>
-        <img src="images/expectation-food.png" alt="Food expectation illustration" class="evr-img">
-        <div class="bubbles-grid">
-          <div class="bubble pop-in delay-1">🌿 Made with natural ingredients<br><small>NATURAL</small></div>
-          <div class="bubble pop-in delay-2">❤️ Healthy choice<br><small>LIGHT & FIT</small></div>
-          <div class="bubble pop-in delay-3">🛡️ Good source of energy<br><small>WHOLESOME</small></div>
-          <div class="bubble pop-in delay-4">⭐ Contains vitamins<br><small>GOOD FOR YOU</small></div>
-        </div>
-        <div class="verdict green-verdict">✓ HEALTHY CHOICE, RIGHT?</div>
-      </div>
-
-      <div class="vs-circle pop-in">VS.</div>
-
-      <div class="evr-right slide-right">
-        <div class="evr-header red-evr-h">THE REALITY</div>
-        <p class="evr-sub">Let's look at the <u>numbers</u>.</p>
-        <div id="realityBars" class="reality-bars"></div>
-        <div class="verdict red-verdict" id="realityVerdict">! Select a food above to reveal the reality.</div>
-      </div>
-    </div>
-
-    <div class="callout-strip slide-up">
-      <span>🔍</span>
-      Don't be fooled by the label. Look deeper, compare better, eat smarter. ❤️
-    </div>
-  </div>
-</section>
--->
-
-<!-- ══════════════════════════════════════════════
-     SECTION 7 · BUILD YOUR OWN BOWL
+     SECTION 5 · BUILD YOUR OWN BOWL
 ══════════════════════════════════════════════ -->
 <section id="bowl" class="bowl-section">
   <div class="section-wrap">
@@ -581,84 +464,125 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
-     SECTION 8 · FRUIT vs SMOOTHIE
+     SECTION 6 · DRINKING FRUIT ≠ EATING FRUIT
 ══════════════════════════════════════════════ -->
-<section id="fruitsplit" class="fruitsplit-section">
+<section id="drinkfruit" class="drinkfruit-section">
   <div class="section-wrap">
+
     <div class="section-head centered-head slide-up">
+      <div class="big-badge">🧃 FOOD MYTH</div>
       <h2 class="section-title">Drinking Fruit <span class="red-text">≠</span> Eating Fruit</h2>
-      <p class="section-sub">Same origin. Different impact.</p>
-      <p class="section-body-text">Let's compare <span class="green-text">real fruits</span> with a popular <span class="pink-text">fruit juice smoothie.</span></p>
-      <div class="tip-float tip-float-inline">
-        <span class="bulb">💡</span>
-        <span>All values are<br>per 100 grams<br>of food.</span>
-      </div>
+      <p class="section-sub">Same fruit ingredients, different experience.</p>
+      <p class="section-body-text">Let's look at what <span class="green-text">eating whole fruit</span> really means compared to a popular <span class="pink-text">fruit drink.</span></p>
     </div>
 
+    <!-- Split panels -->
     <div class="split-wrap">
-      <!-- Left — Real Fruit -->
+
       <div class="split-panel split-green slide-left">
-        <div class="split-header sh-green">🌿 REAL FRUITS</div>
-        <p class="split-desc">Whole fruits come with <strong>fiber</strong>, vitamins and nutrients your body loves.</p>
-        <img src="images/fruit-bowl.png" alt="Fresh fruit bowl" class="split-img">
+        <div class="split-header sh-green">🍎 WHAT THE LABEL SUGGESTS</div>
+        <p class="split-desc">Naked Juice Mighty Mango sounds natural, refreshing, and full of fruit.</p>
+        <div class="df-bottle-emoji" style="font-size:5rem;margin:8px 0;">🥤</div>
         <div class="what-box wbox-green">
-          <div class="what-label">WHAT YOU GET</div>
-          <div class="what-item"><span>🌿</span><span>High in fiber<br><small>Good for digestion</small></span></div>
-          <div class="what-item"><span>🛡️</span><span>More nutrients<br><small>Vitamins, minerals, antioxidants</small></span></div>
-          <div class="what-item"><span>💚</span><span>Keeps you full for longer</span></div>
+          <div class="what-label">THE PROMISE</div>
+          <div class="what-item"><span>✓</span><span>Made with real fruit<br><small>Sounds wholesome</small></span></div>
+          <div class="what-item"><span>✓</span><span>Natural energy<br><small>No artificial stuff</small></span></div>
+          <div class="what-item"><span>✓</span><span>Feels like a healthy choice<br><small>Bright, fresh packaging</small></span></div>
         </div>
         <div class="mini-table">
-          <div class="mt-label">NUTRITION (per 100g)</div>
+          <div class="mt-label">NAKED JUICE MIGHTY MANGO — per 100g</div>
           <div class="mt-row">
-            <div class="mt-cell"><div>🔥</div><div class="mt-name">Calories</div><div class="mt-val" id="fCal">61 kcal</div></div>
-            <div class="mt-cell"><div>🌾</div><div class="mt-name">Carbs</div><div class="mt-val" id="fCarb">14.8 g</div></div>
-            <div class="mt-cell"><div>💧</div><div class="mt-name">Fat</div><div class="mt-val" id="fFat">0.15 g</div></div>
-            <div class="mt-cell"><div>💪</div><div class="mt-name">Protein</div><div class="mt-val" id="fProt">0.17 g</div></div>
-            <div class="mt-cell"><div>🍊</div><div class="mt-name">Vit C</div><div class="mt-val" id="fVitC">4.6 mg</div></div>
-            <div class="mt-cell"><div>🩸</div><div class="mt-name">Iron</div><div class="mt-val" id="fIron">0.03 mg</div></div>
+            <div class="mt-cell"><div>🔥</div><div class="mt-name">Calories</div><div class="mt-val">262 kcal</div></div>
+            <div class="mt-cell"><div>🌾</div><div class="mt-name">Carbs</div><div class="mt-val">15 g</div></div>
+            <div class="mt-cell"><div>💧</div><div class="mt-name">Fat</div><div class="mt-val">0 g</div></div>
+            <div class="mt-cell"><div>💪</div><div class="mt-name">Protein</div><div class="mt-val">0.4 g</div></div>
+            <div class="mt-cell"><div>🍊</div><div class="mt-name">Vit C</div><div class="mt-val">2.5 mg</div></div>
+            <div class="mt-cell"><div>🩸</div><div class="mt-name">Iron</div><div class="mt-val">0.15 mg</div></div>
           </div>
-          <p class="mt-note green-note">Naturally low in calories, high in fiber and vitamins!</p>
+          <p class="mt-note pink-note">High in calories. Very little protein, fiber, or micronutrients.</p>
         </div>
       </div>
 
       <div class="vs-badge pop-in">VS.</div>
 
-      <!-- Right — Smoothie -->
       <div class="split-panel split-pink slide-right">
-        <div class="split-header sh-pink">🥤 FRUIT JUICE SMOOTHIE</div>
-        <p class="split-desc">Tasty and convenient, but much higher in <strong class="pink-text">sugar</strong> and calories. Fiber is mostly gone.</p>
-        <img src="images/smoothie.png" alt="Fruit juice smoothie" class="split-img">
+        <div class="split-header sh-pink">🍎 WHAT THE DATA REVEALS</div>
+        <p class="split-desc">Eating the same fruit whole gives your body a <strong class="green-text">very different experience</strong>.</p>
+        <img src="images/fruit-bowl.png" alt="Whole fruit bowl" class="split-img">
         <div class="what-box wbox-pink">
-          <div class="what-label">WHAT YOU GET</div>
-          <div class="what-item"><span>🍬</span><span>High in sugar<br><small>Mostly from fruit juices</small></span></div>
-          <div class="what-item"><span>🫙</span><span>Low in fiber<br><small>Less filling</small></span></div>
-          <div class="what-item"><span>⚡</span><span>Quick energy spike<br><small>Then crash</small></span></div>
+          <div class="what-label">THE REALITY</div>
+          <div class="what-item"><span>🌿</span><span>Whole fruits generally provide fiber<br><small>Slower digestion, more filling</small></span></div>
+          <div class="what-item"><span>⏱️</span><span>Takes longer to eat<br><small>Chewing slows you down naturally</small></span></div>
+          <div class="what-item"><span>🍬</span><span>Drink = easy to overconsume<br><small>Same calories, gone in seconds</small></span></div>
         </div>
         <div class="mini-table">
-          <div class="mt-label" id="smoothieMtLabel">NUTRITION (per 100g) — Naked Juice Mighty Mango</div>
+          <div class="mt-label">TOGGLE BELOW TO EXPLORE</div>
           <div class="mt-row">
-            <div class="mt-cell"><div>🔥</div><div class="mt-name">Calories</div><div class="mt-val" id="sCal">262 kcal</div></div>
-            <div class="mt-cell"><div>🌾</div><div class="mt-name">Carbs</div><div class="mt-val" id="sCarb">15.0 g</div></div>
-            <div class="mt-cell"><div>💧</div><div class="mt-name">Fat</div><div class="mt-val" id="sFat">0 g</div></div>
-            <div class="mt-cell"><div>💪</div><div class="mt-name">Protein</div><div class="mt-val" id="sProt">0.42 g</div></div>
-            <div class="mt-cell"><div>🍊</div><div class="mt-name">Vit C</div><div class="mt-val" id="sVitC">2.5 mg</div></div>
-            <div class="mt-cell"><div>🩸</div><div class="mt-name">Iron</div><div class="mt-val" id="sIron">0.15 mg</div></div>
+            <div class="mt-cell"><div>🥭</div><div class="mt-name">Mango</div><div class="mt-val">~60 kcal</div></div>
+            <div class="mt-cell"><div>🍊</div><div class="mt-name">Orange</div><div class="mt-val">~47 kcal</div></div>
+            <div class="mt-cell"><div>🍌</div><div class="mt-name">Banana</div><div class="mt-val">~89 kcal</div></div>
+            <div class="mt-cell"><div>🍎</div><div class="mt-name">Apple</div><div class="mt-val">~52 kcal</div></div>
+            <div class="mt-cell"><div>🍍</div><div class="mt-name">Pineapple</div><div class="mt-val">~50 kcal</div></div>
+            <div class="mt-cell"><div>🍓</div><div class="mt-name">Strawberry</div><div class="mt-val">~32 kcal</div></div>
           </div>
-          <p class="mt-note pink-note">Higher in calories, very little fiber or vitamins vs whole fruit.</p>
+          <p class="mt-note green-note">Each fruit piece takes time to eat — and the calories feel different.</p>
         </div>
       </div>
+
     </div><!-- /.split-wrap -->
 
-    <div class="callout-strip yellow-strip slide-up">
-      <span>⭐</span>
-      <strong>BOTTOM LINE:</strong> Whole fruits nourish your body. Fruit smoothies? Enjoy sometimes, not all the time. 🍎⚖️🥤
+    <!-- Toggle: Drink it vs Eat it -->
+    <div class="df-toggle-section slide-up">
+      <h3 class="df-toggle-title">Now imagine eating the fruit instead.</h3>
+      <div class="df-toggle-row">
+        <button class="df-toggle-btn df-active" onclick="selectDFMode('drink',this)">🥤 Drink it</button>
+        <button class="df-toggle-btn" onclick="selectDFMode('eat',this)">🍎 Eat it</button>
+      </div>
+
+      <div id="dfDrinkPanel" class="df-mode-panel">
+        <div class="df-drink-display">
+          <div class="df-big-cup">🥤</div>
+          <div class="df-drink-info">
+            <div class="df-drink-name">Naked Juice Mighty Mango</div>
+            <div class="df-drink-desc">Quick, convenient, and fruit-based — but easy to consume in seconds without realising how much you have had.</div>
+            <div class="df-drink-stats">
+              <span class="df-dstat">⏱️ Done in ~10 seconds</span>
+              <span class="df-dstat">🔥 262 kcal</span>
+              <span class="df-dstat">🌾 15g carbs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dfEatPanel" class="df-mode-panel df-hidden">
+        <p class="df-eat-intro">Click the whole fruits below to add them to your plate and see what the drink would look like if you ate it instead.</p>
+        <div class="df-fruit-grid">
+          <div class="df-fruit-card" onclick="toggleDFFruit('mango','🥭','Mango')"><span class="df-fruit-emoji">🥭</span><span class="df-fruit-name">Mango</span></div>
+          <div class="df-fruit-card" onclick="toggleDFFruit('orange','🍊','Orange')"><span class="df-fruit-emoji">🍊</span><span class="df-fruit-name">Orange</span></div>
+          <div class="df-fruit-card" onclick="toggleDFFruit('banana','🍌','Banana')"><span class="df-fruit-emoji">🍌</span><span class="df-fruit-name">Banana</span></div>
+          <div class="df-fruit-card" onclick="toggleDFFruit('apple','🍎','Apple')"><span class="df-fruit-emoji">🍎</span><span class="df-fruit-name">Apple</span></div>
+          <div class="df-fruit-card" onclick="toggleDFFruit('pineapple','🍍','Pineapple')"><span class="df-fruit-emoji">🍍</span><span class="df-fruit-name">Pineapple</span></div>
+          <div class="df-fruit-card" onclick="toggleDFFruit('strawberry','🍓','Strawberry')"><span class="df-fruit-emoji">🍓</span><span class="df-fruit-name">Strawberry</span></div>
+        </div>
+        <div class="df-plate-wrap">
+          <div class="df-plate-label">YOUR PLATE</div>
+          <div id="dfPlate" class="df-plate"><span class="df-plate-empty">← pick some fruits</span></div>
+          <div id="dfPlateMsg" class="df-plate-msg"></div>
+        </div>
+        <div class="df-eat-note">Eating whole fruit usually takes longer, involves chewing and texture, and whole fruits generally provide fiber — all of which may help you feel more satisfied. Drinking fruit is faster and easier to overconsume before your body registers it.</div>
+      </div>
     </div>
+
+    <div class="callout-strip yellow-strip slide-up">
+      <span>💡</span>
+      <strong>BOTTOM LINE:</strong> Naked Juice may look like a healthy choice, but the data shows why it is worth looking past the label. A fruit drink can contain real fruit and still affect your body differently than eating whole fruit.
+    </div>
+
   </div>
 </section>
 
-
 <!-- ══════════════════════════════════════════════
-     SECTION 8 · FINAL TAKEAWAY
+     SECTION 7 · FINAL TAKEAWAY
 ══════════════════════════════════════════════ -->
 <section id="takeaway" class="takeaway-section">
   <div class="takeaway-inner">

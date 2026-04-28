@@ -127,49 +127,6 @@ const CATEGORY_INSIGHTS = {
    DISPLAY FILTER — hide near-duplicates in UI
    (data is still used for charts/averages)
 ════════════════════════════════════════════ */
-
-// Names to hide from the explore list & reality selector
-const DISPLAY_HIDE = new Set([
-  // Onion variants — keep only 'Onions, raw'
-  'Onions, green, raw', 'Onions, green, cooked', 'Onions, pearl, cooked',
-  'Onions, cooked, as ingredient', 'Onions, red, raw', 'Onions, sweet, raw',
-  'Onions, welsh, raw', 'Onions, dehydrated flakes',
-  // Pear variants — keep 'Pear, raw' and 'Pear, dried'
-  'Pear, canned, in syrup', 'Pear, canned, NFS', 'Pear, canned, juice pack',
-  'Pears, raw', 'Pears, raw, bartlett', 'Pears, raw, red anjou', 'Pears, asian, raw',
-  // Orange duplicates — keep 'Orange, raw'
-  'Orange, canned, NFS', 'Orange, canned, in syrup',
-  // Garlic bread variants — keep 'Garlic bread, NFS'
-  'Garlic bread, frozen', 'Garlic bread, from frozen', 'Garlic bread, from fast food / restaurant',
-  'Garlic bread, with melted cheese, from frozen', 'Garlic bread, with parmesan cheese, from frozen',
-  'Garlic bread, with melted cheese, from fast food / restaurant',
-  'Garlic bread, with parmesan cheese, from fast food / restaurant',
-  // Bread variants — keep 'Bread, sweet potato'
-  'Bread, sweet potato, toasted', 'Bread, onion', 'Bread, onion, toasted',
-  // Tomato variants — keep 'Tomatoes, raw' and 'Tomatoes, grape, raw'
-  'Tomatoes, orange, raw', 'Tomatoes, scalloped',
-  'Tomatoes, red, ripe, canned, packed in tomato juice',
-  'Tomatoes, canned, cooked', 'Tomatoes, fresh, cooked',
-  // Sweet potato — keep 'Sweet potato, NFS' and 'Sweet potato, candied'
-  'Sweet potato, casserole or mashed', 'Sweet potato, cooked, as ingredient',
-  // Soup — keep 'Soup, tomato' and 'Soup, potato'
-  'Soup, tomato, canned', 'Soup, cream of tomato', 'Soup, potato with meat',
-  // Beverage — keep V8 SPLASH Smoothies and NAKED JUICE
-  'Beverages, carbonated, orange', 'Beverages, carbonated, grape soda',
-  'Beverages, grape drink, canned', 'Beverages, grape juice drink, canned',
-  // Cake — keep one representative
-  'Cake or cupcake, apple', 'Cake or cupcake, banana',
-  // Pie — keep a few representatives
-  'Pie, banana cream', 'Pie, blueberry, commercially prepared',
-  // Blueberry — keep raw and dried
-  'Blueberries, frozen', 'Blueberries, dried, sweetened', 'Blueberries, frozen, sweetened',
-  // Strawberry — keep raw
-  'Strawberries, canned', 'Strawberries, frozen, sweetened, sliced',
-  // Data anomalies (suspiciously high kcal per 100g)
-  'Bread, potato',               // 1120 kcal — likely data error
-  'Pears, dried, sulfured, uncooked',  // 1100 kcal
-]);
-
 // Also filter clearly anomalous calorie values (>900 kcal per 100g for non-oil/fat foods)
 function isAnomalous(food) {
   const n = food.food_name.toLowerCase();
@@ -181,7 +138,6 @@ function isAnomalous(food) {
    STATE
 ════════════════════════════════════════════ */
 let foodData       = [];   // full dataset (for charts)
-let displayFoods   = [];   // deduped for UI lists
 let selectedFood   = null;
 let barChartInst   = null;
 let scatterChartInst = null;
@@ -249,22 +205,11 @@ Papa.parse('Food_Nutrition_Dataset.csv', {
       .filter(r => r.food_name && r.calories != null && !isNaN(r.calories))
       .map(r => ({ ...r, superCat: SUPER_CAT[r.category] || 'Other' }));
 
-    // Display list: hide near-duplicates and anomalous data
-    displayFoods = foodData.filter(f => !DISPLAY_HIDE.has(f.food_name) && !isAnomalous(f));
 
     buildScatter();
     buildBar('calories');
-    buildCatFilter();
-    renderFoodList('All Foods');
-    buildRealitySelector();
-    updateFruitSmoothie();
     renderIngredients();
     updateBowl();
-
-    const def = foodData.find(f => f.food_name.includes('NAKED JUICE'))
-             || foodData.find(f => f.food_name === 'Apple, raw')
-             || foodData[0];
-    if (def) selectFood(def.food_name);
   },
 });
 
@@ -421,351 +366,6 @@ function switchNutrient(nutrient, btn) {
 window.switchNutrient = switchNutrient;
 
 /* ════════════════════════════════════════════
-   EXPLORE — CATEGORY FILTER
-════════════════════════════════════════════ */
-function buildCatFilter() {
-  const superCats = ['All Foods', ...new Set(displayFoods.map(d => d.superCat))].sort();
-  const ordered   = ['All Foods', ...superCats.filter(c => c !== 'All Foods')];
-  const el = document.getElementById('catFilterList');
-  if (!el) return;
-  el.innerHTML = ordered.map(cat => {
-    const count = cat === 'All Foods'
-      ? displayFoods.length
-      : displayFoods.filter(d => d.superCat === cat).length;
-    return `<button class="cf-btn ${cat === 'All Foods' ? 'active' : ''}"
-               onclick="filterByCat('${esc(cat)}',this)">
-              <span>${CAT_EMOJI[cat] || '🍴'} ${cat}</span>
-              <span class="cf-count">${count}</span>
-            </button>`;
-  }).join('');
-}
-
-function filterByCat(cat, btn) {
-  document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('foodSearch').value = '';
-  renderFoodList(cat);
-}
-window.filterByCat = filterByCat;
-
-/* ════════════════════════════════════════════
-   EXPLORE — FOOD LIST with hover peek
-════════════════════════════════════════════ */
-function renderFoodList(superCat) {
-  const filtered = superCat === 'All Foods'
-    ? displayFoods
-    : displayFoods.filter(d => d.superCat === superCat);
-  const sorted = [...filtered].sort((a, b) => a.food_name.localeCompare(b.food_name));
-
-  const el = document.getElementById('foodListEl');
-  if (!el) return;
-  el.innerHTML = sorted.map(f => {
-    const isSel = selectedFood && selectedFood.food_name === f.food_name;
-    return `<div class="fl-item ${isSel ? 'selected' : ''}" onclick="selectFood('${esc(f.food_name)}')">
-              <span class="fl-name">${getFoodEmoji(f.food_name)} ${f.food_name}</span>
-              <span class="fl-kcal">${f.calories} kcal</span>
-              <div class="fl-peek">
-                <div class="fp-row">💧 Fat: <strong>${f.fat ?? '—'} g</strong></div>
-                <div class="fp-row">🌾 Carbs: <strong>${f.carbs ?? '—'} g</strong></div>
-                <div class="fp-row">💪 Protein: <strong>${f.protein ?? '—'} g</strong></div>
-              </div>
-            </div>`;
-  }).join('');
-}
-
-function filterFoods() {
-  const q = document.getElementById('foodSearch').value.toLowerCase();
-  document.querySelectorAll('.fl-item').forEach(el => {
-    el.style.display = el.querySelector('.fl-name').textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
-}
-window.filterFoods = filterFoods;
-
-/* ════════════════════════════════════════════
-   EXPLORE — SELECT FOOD & DETAIL PANEL
-════════════════════════════════════════════ */
-function selectFood(name) {
-  // search full foodData (not just displayFoods) so nothing is lost
-  const food = foodData.find(f => f.food_name === name);
-  if (!food) return;
-  selectedFood = food;
-
-  document.querySelectorAll('.fl-item').forEach(el =>
-    el.classList.toggle('selected', el.querySelector('.fl-name')?.textContent.includes(food.food_name))
-  );
-
-  // Bounce the emoji
-  const emojiBox = document.getElementById('detailEmoji');
-  emojiBox.style.transition = 'none';
-  emojiBox.style.transform  = 'scale(0)';
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      emojiBox.style.transition = 'transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
-      emojiBox.style.transform  = 'scale(1)';
-    });
-  });
-
-  emojiBox.textContent = getFoodEmoji(food.food_name);
-  document.getElementById('detailName').textContent = food.food_name.toUpperCase();
-  document.getElementById('detailKcal').textContent = `${food.calories} kcal`;
-  document.getElementById('detailDesc').textContent = getFoodDesc(food);
-
-  const nutrients = ['calories', 'protein', 'carbs', 'fat', 'iron', 'vitamin_c'];
-  document.getElementById('breakdownRows').innerHTML = nutrients.map((n, i) => {
-    const val  = food[n] ?? 0;
-    const pct  = Math.min(100, (val / MAX_VAL[n]) * 100);
-    const dv   = Math.round((val / DAILY_VAL[n]) * 100);
-    const unit = n === 'calories' ? 'kcal' : n === 'iron' || n === 'vitamin_c' ? 'mg' : 'g';
-    return `<div class="bd-row">
-      <span class="bd-icon">${NUTRIENT_ICON[n]}</span>
-      <span class="bd-name">${NUTRIENT_LABEL[n]}</span>
-      <div class="bd-track">
-        <div class="bd-fill ${NUTRIENT_BAR_CLASS[n]}" style="width:0%" data-final="${pct}"></div>
-      </div>
-      <span class="bd-val">${val} ${unit}</span>
-      <span class="bd-dv">${dv}%</span>
-    </div>`;
-  }).join('');
-
-  // Stagger bar animations
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    document.querySelectorAll('#breakdownRows .bd-fill[data-final]').forEach((bar, i) => {
-      setTimeout(() => {
-        bar.style.transition = 'width 0.9s cubic-bezier(0.25,1,0.5,1)';
-        bar.style.width = bar.dataset.final + '%';
-      }, i * 70);
-    });
-  }));
-
-  document.getElementById('dykText').textContent = getDYKFact(food);
-}
-window.selectFood = selectFood;
-
-/* ════════════════════════════════════════════
-   FOOD HELPERS
-════════════════════════════════════════════ */
-function getFoodEmoji(name) {
-  const n = name.toLowerCase();
-  if (n.includes('apple'))      return '🍎';
-  if (n.includes('banana'))     return '🍌';
-  if (n.includes('mango'))      return '🥭';
-  if (n.includes('orange') || n.includes('citrus')) return '🍊';
-  if (n.includes('strawberr'))  return '🍓';
-  if (n.includes('grape'))      return '🍇';
-  if (n.includes('blueberr'))   return '🫐';
-  if (n.includes('pear'))       return '🍐';
-  if (n.includes('milk'))       return '🥛';
-  if (n.includes('cheese'))     return '🧀';
-  if (n.includes('yogurt'))     return '🍦';
-  if (n.includes('butter'))     return '🧈';
-  if (n.includes('rice'))       return '🍚';
-  if (n.includes('bread') || n.includes('roll')) return '🍞';
-  if (n.includes('pasta'))      return '🍝';
-  if (n.includes('cake') || n.includes('pie')) return '🎂';
-  if (n.includes('chip'))       return '🍟';
-  if (n.includes('cookie'))     return '🍪';
-  if (n.includes('chocolate'))  return '🍫';
-  if (n.includes('chicken') || n.includes('poultry')) return '🍗';
-  if (n.includes('pork'))       return '🥩';
-  if (n.includes('fish') || n.includes('seafood')) return '🐟';
-  if (n.includes('smoothie') || n.includes('naked') || n.includes('juice')) return '🥤';
-  if (n.includes('coffee') || n.includes('tea')) return '☕';
-  if (n.includes('salad'))      return '🥗';
-  if (n.includes('broccoli'))   return '🥦';
-  if (n.includes('carrot'))     return '🥕';
-  if (n.includes('tomato'))     return '🍅';
-  if (n.includes('potato'))     return '🥔';
-  if (n.includes('onion'))      return '🧅';
-  if (n.includes('ice cream') || n.includes('frozen dairy')) return '🍨';
-  if (n.includes('garlic'))     return '🧄';
-  if (n.includes('soup'))       return '🍲';
-  return '🍴';
-}
-
-function getFoodDesc(food) {
-  const n = food.food_name.toLowerCase();
-  if (n.includes('naked juice') || n.includes('mighty mango'))
-    return 'A popular bottled fruit smoothie marketed as a healthy, vitamin-rich drink.';
-  if (n.includes('chip'))       return 'Deep-fried sliced potatoes — crunchy and calorie-dense.';
-  if (n.includes('yogurt'))     return 'A dairy snack that can vary widely in sugar depending on flavoring.';
-  if (n.includes('apple, raw')) return 'A crisp, sweet whole fruit loaded with fiber and vitamins.';
-  if (food.superCat === 'Snacks')
-    return `A snack food with ${food.calories} kcal per 100g. Compare that to whole fruits at ~60 kcal!`;
-  if (food.superCat === 'Fruits')
-    return `A naturally sweet fruit with ${food.calories} kcal per 100g, rich in vitamins and fiber.`;
-  if (food.superCat === 'Drinks')
-    return `A beverage with ${food.calories} kcal per 100g. Many drinks lose fiber and nutrients during processing.`;
-  return `${food.category} — ${food.calories} kcal, ${food.protein ?? '—'}g protein, ${food.carbs ?? '—'}g carbs per 100g.`;
-}
-
-function getDYKFact(food) {
-  const n = food.food_name.toLowerCase();
-  if (n.includes('naked') || n.includes('mighty mango'))
-    return 'NAKED JUICE Mighty Mango has 4× the calories of a fresh apple per 100g, with almost no fiber!';
-  if (n.includes('chip'))
-    return 'Potato chips can pack more calories per 100g than many desserts — mostly from fat!';
-  if (n.includes('yogurt') && n.includes('chobani'))
-    return 'Greek yogurt is high in protein, but flavored versions can pack surprising amounts of added sugar!';
-  if (n.includes('apple, raw'))
-    return 'An apple a day keeps the doctor away — only ~61 kcal per 100g and a solid dose of fiber!';
-  if (n.includes('banana chips'))
-    return 'Banana chips sound healthy, but frying concentrates the calories to ~519 kcal — same as potato chips!';
-  if (n.includes('mango, raw'))
-    return 'Fresh mango is only 60 kcal per 100g and packed with Vitamin C. Dried mango has 5× more calories!';
-  if (food.superCat === 'Drinks')
-    return 'Most bottled fruit drinks lose fiber during processing, leaving mostly sugar with little nutritional benefit.';
-  if (food.superCat === 'Snacks')
-    return `This snack has ${food.calories} kcal per 100g. Whole fruits average ~60 kcal — almost ${Math.round(food.calories / 60)}× less!`;
-  return `${food.food_name} has ${food.calories} kcal, ${food.protein ?? '—'}g protein, and ${food.carbs ?? '—'}g carbs per 100g.`;
-}
-
-/* ════════════════════════════════════════════
-   EXPECTATION vs REALITY — curated selector
-════════════════════════════════════════════ */
-
-// Hand-picked foods with interesting stories (seem healthy vs reality)
-const REALITY_SEARCH_TERMS = [
-  'NAKED JUICE', 'MIGHTY MANGO',     // Looks like health food
-  'Banana chips',                     // Sounds like fruit, is a snack
-  'Mango, dried',                     // Dried fruit sugar trap
-  'Apple, candied',                   // Candied fruit vs raw
-  'Yogurt, Greek, 2% fat, mango',     // Flavored yogurt sugar
-  'SILK Strawberry soy yogurt',       // "Healthy" alternative
-  'Mango, canned',                    // Canned vs raw
-  'Blueberries, dried',               // Dried vs raw difference
-  'Strawberries, raw',                // Baseline healthy
-  'Apple, raw',                       // Baseline healthy
-  'Mango, raw',                       // Baseline healthy
-  'Potato chips, plain',              // Known unhealthy baseline
-  'Sweet potato, candied',            // "Veggie" but candied
-  'Ice cream',                        // Obvious
-  'Pie, apple',                       // Apple → healthy? Pie?
-  'Beverages, OCEAN SPRAY',           // Juice drink
-  'Beverages, V8 SPLASH Smoothies',   // Marketed as healthy
-  'Grape juice, 100%',                // "100%" sounds healthy
-  'Grape juice drink',                // Less healthy drink variant
-  'Soup, tomato',                     // Low-cal option
-  'Pear, raw',                        // Fresh fruit baseline
-  'Pear, dried',                      // Dried vs raw
-];
-
-function buildRealitySelector() {
-  const select = document.getElementById('realitySelect');
-  if (!select) return;
-
-  // Build a curated, non-duplicate list
-  const curated = [];
-  const seen = new Set();
-
-  REALITY_SEARCH_TERMS.forEach(term => {
-    const match = foodData.find(f =>
-      f.food_name.toLowerCase().includes(term.toLowerCase()) && !seen.has(f.food_name)
-    );
-    if (match) { curated.push(match); seen.add(match.food_name); }
-  });
-
-  // Fill remaining slots with interesting items from displayFoods not already added
-  displayFoods
-    .filter(f => !seen.has(f.food_name) && (f.superCat === 'Snacks' || f.superCat === 'Drinks' || f.calories > 200))
-    .slice(0, 15)
-    .forEach(f => { curated.push(f); seen.add(f.food_name); });
-
-  select.innerHTML = curated.map(f =>
-    `<option value="${escAttr(f.food_name)}">${f.food_name}</option>`
-  ).join('');
-
-  renderReality();
-}
-
-function renderReality() {
-  const select = document.getElementById('realitySelect');
-  if (!select) return;
-  const food = foodData.find(f => f.food_name === select.value);
-  if (!food) return;
-
-  const barsEl = document.getElementById('realityBars');
-  if (!barsEl) return;
-
-  const nutrients = ['calories', 'carbs', 'fat', 'protein', 'iron', 'vitamin_c'];
-  barsEl.innerHTML = nutrients.map((n, i) => {
-    const val  = food[n] ?? 0;
-    const pct  = Math.min(100, (val / MAX_VAL[n]) * 100);
-    const tag  = getRealityTag(n, val);
-    const unit = n === 'calories' ? 'kcal' : n === 'iron' || n === 'vitamin_c' ? 'mg' : 'g';
-    return `<div class="rl-row" style="transition-delay:${i * 0.08}s">
-      <span class="rl-label">${NUTRIENT_ICON[n]} ${NUTRIENT_LABEL[n].split(' ')[0]}</span>
-      <div class="rl-track">
-        <div class="rl-fill" style="width:0%;background:${NUTRIENT_COLOR[n]}" data-final="${pct}"></div>
-      </div>
-      <span class="rl-val">${val} ${unit}</span>
-      <span class="rl-tag ${tag.cls}">${tag.label}</span>
-    </div>`;
-  }).join('');
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    barsEl.querySelectorAll('.rl-fill[data-final]').forEach((bar, i) => {
-      setTimeout(() => {
-        bar.style.transition = 'width 1.1s cubic-bezier(0.25,1,0.5,1)';
-        bar.style.width = bar.dataset.final + '%';
-      }, i * 80);
-    });
-  }));
-
-  document.getElementById('realityVerdict').textContent = getRealityVerdict(food);
-}
-window.renderReality = renderReality;
-
-function getRealityTag(nutrient, val) {
-  const tiers = {
-    calories: [{max:100,cls:'tag-good',label:'Low'},{max:300,cls:'tag-med',label:'Moderate'},{max:Infinity,cls:'tag-hi',label:'High in calories'}],
-    carbs:    [{max:15,cls:'tag-good',label:'Low carbs'},{max:40,cls:'tag-med',label:'Moderate'},{max:Infinity,cls:'tag-hi',label:'High in carbs'}],
-    fat:      [{max:5,cls:'tag-good',label:'Low fat'},{max:20,cls:'tag-med',label:'Moderate fat'},{max:Infinity,cls:'tag-hi',label:'High in fat'}],
-    protein:  [{max:5,cls:'tag-low',label:'Low protein'},{max:15,cls:'tag-ok',label:'Good amount'},{max:Infinity,cls:'tag-good',label:'High protein'}],
-    iron:     [{max:2,cls:'tag-low',label:'Low iron'},{max:5,cls:'tag-ok',label:'Decent iron'},{max:Infinity,cls:'tag-good',label:'Good iron'}],
-    vitamin_c:[{max:5,cls:'tag-low',label:'Low vit C'},{max:30,cls:'tag-ok',label:'Some vit C'},{max:Infinity,cls:'tag-good',label:'High vit C'}],
-  };
-  for (const t of tiers[nutrient] || []) if (val <= t.max) return t;
-  return { cls: 'tag-med', label: 'Moderate' };
-}
-
-function getRealityVerdict(food) {
-  if (food.superCat === 'Drinks' && food.calories > 150)
-    return '! More calories than it looks — and mostly sugar, not real nutrients.';
-  if (food.calories > 450)  return '! Very high in calories — not as healthy as it looks!';
-  if (food.calories > 250 && food.fat > 15) return '! Higher in calories and fat than you might expect.';
-  if (food.carbs > 60)      return '! High in carbs — watch your portion size.';
-  if (food.protein > 20 && food.calories < 200) return '✓ Great choice — high protein, lower calories!';
-  return 'Check the full numbers before judging by appearance!';
-}
-
-/* ════════════════════════════════════════════
-   FRUIT vs SMOOTHIE
-════════════════════════════════════════════ */
-function updateFruitSmoothie() {
-  const apple = foodData.find(f => f.food_name === 'Apple, raw');
-  const smoothie = foodData.find(f => f.food_name.includes('NAKED JUICE') && f.food_name.includes('MANGO'))
-                || foodData.find(f => f.food_name.toLowerCase().includes('smoothie'));
-
-  if (apple) {
-    setEl('fCal',  `${apple.calories} kcal`);
-    setEl('fCarb', `${apple.carbs ?? '—'} g`);
-    setEl('fFat',  `${apple.fat ?? '—'} g`);
-    setEl('fProt', `${apple.protein ?? '—'} g`);
-    setEl('fVitC', `${apple.vitamin_c ?? '—'} mg`);
-    setEl('fIron', `${apple.iron ?? '—'} mg`);
-  }
-  if (smoothie) {
-    setEl('sCal',  `${smoothie.calories} kcal`);
-    setEl('sCarb', `${smoothie.carbs ?? '—'} g`);
-    setEl('sFat',  `${smoothie.fat ?? 0} g`);
-    setEl('sProt', `${smoothie.protein ?? '—'} g`);
-    setEl('sVitC', `${smoothie.vitamin_c ?? '—'} mg`);
-    setEl('sIron', `${smoothie.iron ?? '—'} mg`);
-    const lbl = document.getElementById('smoothieMtLabel');
-    if (lbl) lbl.textContent = `NUTRITION (per 100g) — ${smoothie.food_name}`;
-  }
-}
-
 /* ════════════════════════════════════════════
    BUILD YOUR OWN BOWL
 ════════════════════════════════════════════ */
@@ -909,6 +509,75 @@ function updateBowl() {
 
   if (msgEl)     msgEl.textContent = msg;
   if (insightEl) { insightEl.textContent = insight; insightEl.className = 'bowl-insight ' + cls; }
+}
+
+/* ════════════════════════════════════════════
+   DRINKING FRUIT ≠ EATING FRUIT
+════════════════════════════════════════════ */
+const dfPlateItems = new Set();
+
+function selectDFMode(mode, btn) {
+  document.querySelectorAll('.df-toggle-btn').forEach(b => b.classList.remove('df-active'));
+  btn.classList.add('df-active');
+  const drinkPanel = document.getElementById('dfDrinkPanel');
+  const eatPanel   = document.getElementById('dfEatPanel');
+  if (mode === 'drink') {
+    drinkPanel.classList.remove('df-hidden');
+    eatPanel.classList.add('df-hidden');
+  } else {
+    drinkPanel.classList.add('df-hidden');
+    eatPanel.classList.remove('df-hidden');
+  }
+}
+
+function toggleDFFruit(id, emoji, name) {
+  if (dfPlateItems.has(id)) {
+    dfPlateItems.delete(id);
+  } else {
+    dfPlateItems.add(id);
+  }
+  // Update card selected state
+  document.querySelectorAll('.df-fruit-card').forEach(card => {
+    const cardName = card.querySelector('.df-fruit-name').textContent;
+    if (cardName === name) card.classList.toggle('df-fruit-selected', dfPlateItems.has(id));
+  });
+  updateDFPlate();
+}
+
+function updateDFPlate() {
+  const plate = document.getElementById('dfPlate');
+  const msg   = document.getElementById('dfPlateMsg');
+  if (!plate) return;
+
+  // Rebuild plate from all selected fruits using stored data
+  const fruitData = [
+    { id:'mango',      emoji:'🥭', name:'Mango' },
+    { id:'orange',     emoji:'🍊', name:'Orange' },
+    { id:'banana',     emoji:'🍌', name:'Banana' },
+    { id:'apple',      emoji:'🍎', name:'Apple' },
+    { id:'pineapple',  emoji:'🍍', name:'Pineapple' },
+    { id:'strawberry', emoji:'🍓', name:'Strawberry' },
+  ];
+  const selected = fruitData.filter(f => dfPlateItems.has(f.id));
+
+  if (selected.length === 0) {
+    plate.innerHTML = '<span class="df-plate-empty">← pick some fruits</span>';
+    msg.textContent = '';
+    return;
+  }
+
+  plate.innerHTML = selected.map(f => `<span class="df-plate-fruit">${f.emoji}</span>`).join('');
+
+  const messages = [
+    '',
+    '🍽️ One piece of fruit — a quick snack.',
+    '🍽️ Two fruits — that\'s already a sizeable snack with texture and chewing.',
+    '🍽️ Three fruits — starting to feel like a proper fruit bowl!',
+    '🍽️ Four fruits — you can see how much fruit this would feel like compared to a single drink.',
+    '🍽️ Five fruits — this would take a while to eat. The drink takes 10 seconds.',
+    '🍽️ All six fruits — now imagine drinking all of this in one bottle. That\'s what fruit drinks can feel like to your body.'
+  ];
+  msg.textContent = messages[Math.min(selected.length, 6)];
 }
 
 /* ════════════════════════════════════════════
