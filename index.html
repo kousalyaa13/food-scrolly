@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looks Healthy... But Is It?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 1 · HERO
+══════════════════════════════════════════════ -->
+<section id="hero" class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">🔍 DATA STORY · INST 462</div>
+      <h1 class="hero-title">Looks Healthy...<br><span class="green-text">But Is It?</span></h1>
+      <p class="hero-subtitle">A scrollytelling experience about food labels,<br>nutrition myths, and hidden assumptions.</p>
+      <p class="hero-body">Some foods that <em>seem</em> healthy can have the same — or even more — calories, fat, and carbs as foods we already know are unhealthy. Let the data show you the truth.</p>
+      <div class="scroll-cue">
+        <span>Scroll to explore</span>
+        <div class="bounce-arrow">↓</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!--
+      ╔══════════════════════════════════════════════════════╗
+      ║  IMAGE PLACEHOLDER — Hero illustration               ║
+      ║  Insert a cartoon showing mixed foods:               ║
+      ║  granola bowl, smoothie cup, apple, chips bowl       ║
+      ║  Recommended size: 480 × 380 px, illustrated style  ║
+      ║  Replace this div with:                             ║
+      ║  <img src="images/hero.png" alt="Food illustration" ║
+      ║       class="hero-img">                              ║
+      ╚══════════════════════════════════════════════════════╝
+      -->
+      <div class="img-placeholder large-ph">
+        <div class="ph-content">🍎&nbsp;🥑&nbsp;🍟<br>🥗&nbsp;🧁&nbsp;🥤<br><span class="ph-label">[ Hero cartoon illustration ]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-legend-bar">
+    <span class="legend-pill"><span class="dot dot-cal"></span>Calories (kcal)</span>
+    <span class="legend-pill"><span class="dot dot-fat"></span>Fat (g)</span>
+    <span class="legend-pill"><span class="dot dot-carb"></span>Carbs (g)</span>
+    <div class="legend-note">
+      <span class="bulb">💡</span>
+      All values are per <strong>100 grams</strong> of food
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 2 · HOOK — First impressions
+══════════════════════════════════════════════ -->
+<section id="hook" class="hook-section fade-in">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="section-title">Looks Healthy... <span class="green-text">But Is It?</span></h2>
+      <p class="section-sub">Some foods that <em>seem</em> healthy can have the same (or even more) calories, fat, and carbs as the foods we think are unhealthy.</p>
+      <div class="tip-float">
+        <span class="bulb">💡</span>
+        <span>All values are<br>per 100 grams<br>of food</span>
+      </div>
+    </div>
+
+    <div class="hook-cards">
+
+      <!-- Card 1 — Granola -->
+      <div class="hook-card fade-in">
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Granola bowl                   ║
+        ║  Cartoon of a white bowl with granola, blueberries  ║
+        ║  and strawberries, with sparkle lines around it     ║
+        ║  Recommended size: 220 × 180 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/granola.png" alt="Granola bowl"  ║
+        ║       class="food-illo">                            ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder small-ph">
+          <div class="ph-content">🥣<br><span class="ph-label">[ Granola bowl illustration ]</span></div>
+        </div>
+        <div class="food-badge green-badge">GRANOLA</div>
+        <div class="food-tag green-tag">(seems healthy!)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" style="width:85%"></div></div>
+            <span class="n-val">452</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" style="width:47%"></div></div>
+            <span class="n-val">16 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" style="width:100%"></div></div>
+            <span class="n-val">64 g</span>
+          </div>
+        </div>
+        <div class="food-note">Often seen as a healthy breakfast option.</div>
+      </div>
+
+      <!-- Card 2 — Flavored Yogurt -->
+      <div class="hook-card fade-in">
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Yogurt cup                     ║
+        ║  Cartoon of a purple yogurt cup (label: "YOGURT")   ║
+        ║  with a strawberry and blueberries on top           ║
+        ║  Recommended size: 220 × 180 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/yogurt.png" alt="Yogurt cup"     ║
+        ║       class="food-illo">                            ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder small-ph">
+          <div class="ph-content">🍦<br><span class="ph-label">[ Yogurt cup illustration ]</span></div>
+        </div>
+        <div class="food-badge green-badge">FLAVORED YOGURT</div>
+        <div class="food-tag green-tag">(seems healthy!)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" style="width:17%"></div></div>
+            <span class="n-val">93</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" style="width:5%"></div></div>
+            <span class="n-val">1.7 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" style="width:18%"></div></div>
+            <span class="n-val">11.8 g</span>
+          </div>
+        </div>
+        <div class="food-note">Marketed as a healthy snack, but watch the sugar!</div>
+      </div>
+
+      <!-- Card 3 — Potato Chips -->
+      <div class="hook-card hook-card-red fade-in">
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Potato chips bowl              ║
+        ║  Cartoon of a red bowl piled high with chips,       ║
+        ║  with pink sparkle lines (excitement lines)         ║
+        ║  Recommended size: 220 × 180 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/chips.png" alt="Potato chips"    ║
+        ║       class="food-illo">                            ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder small-ph">
+          <div class="ph-content">🍟<br><span class="ph-label">[ Chips bowl illustration ]</span></div>
+        </div>
+        <div class="food-badge red-badge">POTATO CHIPS</div>
+        <div class="food-tag red-tag">(known as unhealthy)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" style="width:100%"></div></div>
+            <span class="n-val">532</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" style="width:100%"></div></div>
+            <span class="n-val">34 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" style="width:84%"></div></div>
+            <span class="n-val">53.8 g</span>
+          </div>
+        </div>
+        <div class="food-note food-note-red">We know it's not the healthiest, but how does it compare?</div>
+      </div>
+
+    </div><!-- /.hook-cards -->
+
+    <div class="callout-strip">
+      <span class="star-icon">⭐</span>
+      Don't judge a food by how it looks or its label. Let's dig into the <u>real numbers</u>!
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 3 · SCATTER PLOT — Calories vs Fat
+══════════════════════════════════════════════ -->
+<section id="scatter" class="scatter-section fade-in">
+  <div class="section-wrap">
+    <div class="scatter-layout">
+
+      <div class="scatter-main">
+        <h2 class="section-title">CALORIES <span style="color:#bbb;font-size:1.6rem;">vs</span> FAT</h2>
+        <p class="section-sub-sm">More calories usually mean more fat.<br>But not every food plays by the same rules.</p>
+
+        <div id="scatterLegend" class="cat-legend"></div>
+
+        <div class="chart-box">
+          <canvas id="scatterChart"></canvas>
+        </div>
+
+        <div class="callout-strip">
+          <span>🔍</span>
+          High calories doesn't always mean high fat. Explore the foods to see the full picture!
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="side-card tip-card">
+          <span class="bulb big-bulb">💡</span>
+          <p>Each dot is a food item. Position shows its <strong>calories</strong> (energy) and <strong>fat (g)</strong> per 100g.</p>
+        </div>
+        <div class="side-card blue-card">
+          <h4>KEY TAKEAWAY</h4>
+          <p>Calories and fat are related, but the <strong>type of food</strong> makes a big difference!</p>
+          <span>⭐</span>
+        </div>
+        <div class="side-card grey-card">
+          <h4>HOW TO READ</h4>
+          <div class="how-item">→ Move right = more calories</div>
+          <div class="how-item">↑ Move up = more fat</div>
+          <div class="how-item">🔵 Color = food group</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 4 · CATEGORY BAR CHART
+══════════════════════════════════════════════ -->
+<section id="categories" class="categories-section fade-in">
+  <div class="section-wrap">
+    <div class="categories-layout">
+
+      <div class="categories-main">
+        <div class="big-badge">🔭 BIG PICTURE</div>
+        <h2 class="section-title">How Do Food Categories Compare?</h2>
+        <p class="section-sub-sm">Different food groups have different strengths (and weaknesses).<br>Explore the <mark>average nutrition per 100g</mark> across food categories.</p>
+
+        <div class="nutrient-switcher">
+          <p class="choose-label">CHOOSE A NUTRIENT TO COMPARE:</p>
+          <div class="btn-row">
+            <button class="n-btn active-n" onclick="switchNutrient('calories',this)">🔥 Calories (kcal)</button>
+            <button class="n-btn" onclick="switchNutrient('fat',this)">💧 Fat (g)</button>
+            <button class="n-btn" onclick="switchNutrient('carbs',this)">🌾 Carbs (g)</button>
+            <button class="n-btn" onclick="switchNutrient('protein',this)">💪 Protein (g)</button>
+            <button class="n-btn" onclick="switchNutrient('iron',this)">🩸 Iron (mg)</button>
+            <button class="n-btn" onclick="switchNutrient('vitamin_c',this)">🍊 Vitamin C (mg)</button>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <div class="chart-subtitle" id="barTitle">AVERAGE CALORIES (kcal) PER 100g</div>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="callout-strip yellow-strip">
+          <span>🔍</span>
+          <span id="catTakeaway">TAKEAWAY: Food categories are not the same. What's considered "healthy" depends on what you're looking at. Let's dive deeper!</span>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="side-card tip-card">
+          <span class="bulb big-bulb">💡</span>
+          <p>Each bar shows the average amount of the selected nutrient for foods in that category.</p>
+          <p style="margin-top:8px;font-size:0.82rem;color:#888;">← Click to switch between nutrients!</p>
+        </div>
+        <div class="side-card grey-card" id="insightsCard">
+          <h4>KEY INSIGHTS ⭐</h4>
+          <ul id="insightList" class="insight-list">
+            <li><span class="ins-orange">Snacks</span> have the highest average calories.</li>
+            <li><span class="ins-green">Fruits</span> and <span class="ins-yellow">vegetables</span> are the lowest.</li>
+            <li><span class="ins-blue">Dairy</span> and <span class="ins-purple">grains</span> are moderate.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 5 · EXPLORE FOODS (interactive panel)
+══════════════════════════════════════════════ -->
+<section id="explore" class="explore-section fade-in">
+  <div class="section-wrap">
+    <div class="section-head">
+      <h2 class="section-title">🔍 Explore Foods</h2>
+      <p class="section-sub">Select a food to see its full nutrition breakdown</p>
+      <div class="tip-float">
+        <span class="bulb">💡</span>
+        <span>All values are<br>per 100 grams<br>of food.</span>
+      </div>
+    </div>
+
+    <div class="explore-layout">
+
+      <!-- Column 1 — Category filter -->
+      <div class="explore-cats">
+        <h4 class="col-label">1. CHOOSE A CATEGORY</h4>
+        <div id="catFilterList" class="cat-filter-list"></div>
+      </div>
+
+      <!-- Column 2 — Food list -->
+      <div class="explore-foods-col">
+        <h4 class="col-label">2. CHOOSE A FOOD</h4>
+        <div class="search-box">
+          <input type="text" id="foodSearch" placeholder="Search food..." oninput="filterFoods()">
+          <span>🔍</span>
+        </div>
+        <div id="foodListEl" class="food-list-panel"></div>
+      </div>
+
+      <!-- Column 3 — Detail panel -->
+      <div class="explore-detail">
+        <h4 class="col-label">3. FOOD NUTRITION DETAILS</h4>
+        <div class="detail-card">
+          <div class="detail-top">
+            <div class="detail-emoji-box" id="detailEmoji">🍴</div>
+            <div class="detail-info">
+              <div class="detail-name" id="detailName">Select a food</div>
+              <div class="detail-kcal" id="detailKcal">— kcal</div>
+              <div class="detail-unit">per 100g</div>
+              <p class="detail-desc" id="detailDesc">Choose a category and click any food item to explore its nutrition breakdown.</p>
+            </div>
+          </div>
+          <div class="breakdown-section">
+            <div class="breakdown-head">
+              NUTRIENT BREAKDOWN (per 100g)
+              <span class="dv-label">% Daily Value*</span>
+            </div>
+            <div id="breakdownRows"></div>
+            <p class="dv-note">*% Daily Value based on a 2,000 calorie diet.</p>
+          </div>
+          <div class="dyk-box" id="dykBox">
+            <span class="star-icon">⭐</span>
+            <div>
+              <strong>DID YOU KNOW?</strong>
+              <p id="dykText">Select a food to learn an interesting fact!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 6 · EXPECTATION vs REALITY
+══════════════════════════════════════════════ -->
+<section id="expectation" class="expectation-section fade-in">
+  <div class="section-wrap">
+    <div class="section-head centered-head">
+      <h2 class="exp-title">THE <span class="green-text">EXPECTATION</span> vs. THE <span class="red-text">REALITY</span></h2>
+      <p class="section-sub">Food labels tell a story. <u>Data</u> tells the truth.</p>
+      <div class="tip-float tip-float-inline">
+        <span class="bulb">💡</span>
+        <span>All values are<br>per 100 grams<br>of food.</span>
+      </div>
+    </div>
+
+    <div class="food-picker">
+      <span>Focus on:</span>
+      <select id="realitySelect" onchange="renderReality()">
+        <option value="">Loading foods…</option>
+      </select>
+    </div>
+
+    <div class="evr-layout">
+
+      <!-- Left — Expectation -->
+      <div class="evr-left">
+        <div class="evr-header green-evr-h">WHAT WE THINK</div>
+        <p class="evr-sub">Looks <span class="green-text"><u>healthy</u></span>. Good choice!</p>
+
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Food cartoon (Expectation side) ║
+        ║  For Naked Juice / Granola: a bright, friendly       ║
+        ║  illustration of the food looking appealing          ║
+        ║  Recommended size: 220 × 180 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/expectation-food.png"             ║
+        ║       alt="Food illustration" class="evr-img">      ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder med-ph" style="margin:0 auto;">
+          <div class="ph-content">🥣🥤<br><span class="ph-label">[ Food cartoon illustration ]</span></div>
+        </div>
+
+        <div class="bubbles-grid">
+          <div class="bubble">🌿 Made with natural ingredients<br><small>NATURAL</small></div>
+          <div class="bubble">❤️ Healthy choice<br><small>LIGHT & FIT</small></div>
+          <div class="bubble">🛡️ Good source of energy<br><small>WHOLESOME</small></div>
+          <div class="bubble">⭐ Contains vitamins<br><small>GOOD FOR YOU</small></div>
+        </div>
+
+        <div class="verdict green-verdict">✓ HEALTHY CHOICE, RIGHT?</div>
+      </div>
+
+      <!-- VS circle -->
+      <div class="vs-circle">VS.</div>
+
+      <!-- Right — Reality -->
+      <div class="evr-right">
+        <div class="evr-header red-evr-h">THE REALITY</div>
+        <p class="evr-sub">Let's look at the <u>numbers</u>.</p>
+        <div id="realityBars" class="reality-bars"></div>
+        <div class="verdict red-verdict" id="realityVerdict">! Select a food above to reveal the reality.</div>
+      </div>
+
+    </div>
+
+    <div class="callout-strip">
+      <span>🔍</span>
+      Don't be fooled by the label. Look deeper, compare better, eat smarter. ❤️
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 7 · FRUIT vs SMOOTHIE
+══════════════════════════════════════════════ -->
+<section id="fruitsplit" class="fruitsplit-section fade-in">
+  <div class="section-wrap">
+    <div class="section-head centered-head">
+      <h2 class="section-title">Drinking Fruit <span class="red-text">≠</span> Eating Fruit</h2>
+      <p class="section-sub">Same origin. Different impact.</p>
+      <p class="section-body-text">Let's compare <span class="green-text">real fruits</span> with a popular <span class="pink-text">fruit juice smoothie.</span></p>
+      <div class="tip-float tip-float-inline">
+        <span class="bulb">💡</span>
+        <span>All values are<br>per 100 grams<br>of food.</span>
+      </div>
+    </div>
+
+    <div class="split-wrap">
+
+      <!-- Left — Real Fruit -->
+      <div class="split-panel split-green">
+        <div class="split-header sh-green">🌿 REAL FRUITS</div>
+        <p class="split-desc">Whole fruits come with <strong>fiber</strong>, vitamins and nutrients your body loves.</p>
+
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Fruit bowl                     ║
+        ║  A colorful bowl or pile of whole fruits:           ║
+        ║  orange, kiwi, strawberry, banana, blueberries      ║
+        ║  Can be a real photo or illustration                 ║
+        ║  Recommended size: 280 × 200 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/fruit-bowl.png"                   ║
+        ║       alt="Fresh fruits" class="split-img">         ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder med-ph">
+          <div class="ph-content">🍎🍊🥝🍓🍇<br><span class="ph-label">[ Fruit bowl photo / illustration ]</span></div>
+        </div>
+
+        <div class="what-box wbox-green">
+          <div class="what-label">WHAT YOU GET</div>
+          <div class="what-item"><span>🌿</span><span>High in fiber<br><small>Good for digestion</small></span></div>
+          <div class="what-item"><span>🛡️</span><span>More nutrients<br><small>Vitamins, minerals, antioxidants</small></span></div>
+          <div class="what-item"><span>💚</span><span>Keeps you full for longer</span></div>
+        </div>
+
+        <div class="mini-table">
+          <div class="mt-label">NUTRITION (per 100g)</div>
+          <div class="mt-row">
+            <div class="mt-cell"><div>🔥</div><div class="mt-name">Calories</div><div class="mt-val" id="fCal">61 kcal</div></div>
+            <div class="mt-cell"><div>🌾</div><div class="mt-name">Carbs</div><div class="mt-val" id="fCarb">14.8 g</div></div>
+            <div class="mt-cell"><div>💧</div><div class="mt-name">Fat</div><div class="mt-val" id="fFat">0.15 g</div></div>
+            <div class="mt-cell"><div>💪</div><div class="mt-name">Protein</div><div class="mt-val" id="fProt">0.17 g</div></div>
+            <div class="mt-cell"><div>🍊</div><div class="mt-name">Vit C</div><div class="mt-val" id="fVitC">4.6 mg</div></div>
+            <div class="mt-cell"><div>🩸</div><div class="mt-name">Iron</div><div class="mt-val" id="fIron">0.03 mg</div></div>
+          </div>
+          <p class="mt-note green-note">Naturally low in calories, high in fiber and vitamins!</p>
+        </div>
+      </div>
+
+      <!-- VS badge -->
+      <div class="vs-badge">VS.</div>
+
+      <!-- Right — Smoothie -->
+      <div class="split-panel split-pink">
+        <div class="split-header sh-pink">🥤 FRUIT JUICE SMOOTHIE</div>
+        <p class="split-desc">Tasty and convenient, but much higher in <strong class="pink-text">sugar</strong> and calories. Fiber is mostly gone.</p>
+
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  IMAGE PLACEHOLDER — Smoothie cup                   ║
+        ║  A pink/orange smoothie in a clear cup with straw,  ║
+        ║  mango chunks and strawberries around it            ║
+        ║  Can be a real photo or illustration                 ║
+        ║  Recommended size: 280 × 200 px                     ║
+        ║  Replace with:                                      ║
+        ║  <img src="images/smoothie.png"                     ║
+        ║       alt="Fruit smoothie" class="split-img">       ║
+        ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder med-ph">
+          <div class="ph-content">🥤🥭🍓<br><span class="ph-label">[ Smoothie cup photo / illustration ]</span></div>
+        </div>
+
+        <div class="what-box wbox-pink">
+          <div class="what-label">WHAT YOU GET</div>
+          <div class="what-item"><span>🍬</span><span>High in sugar<br><small>Mostly from fruit juices</small></span></div>
+          <div class="what-item"><span>🫙</span><span>Low in fiber<br><small>Less filling</small></span></div>
+          <div class="what-item"><span>⚡</span><span>Quick energy spike<br><small>Then crash</small></span></div>
+        </div>
+
+        <div class="mini-table">
+          <div class="mt-label">NUTRITION (per 100g) — Naked Juice Mighty Mango</div>
+          <div class="mt-row">
+            <div class="mt-cell"><div>🔥</div><div class="mt-name">Calories</div><div class="mt-val" id="sCal">262 kcal</div></div>
+            <div class="mt-cell"><div>🌾</div><div class="mt-name">Carbs</div><div class="mt-val" id="sCarb">15.0 g</div></div>
+            <div class="mt-cell"><div>💧</div><div class="mt-name">Fat</div><div class="mt-val" id="sFat">0 g</div></div>
+            <div class="mt-cell"><div>💪</div><div class="mt-name">Protein</div><div class="mt-val" id="sProt">0.42 g</div></div>
+            <div class="mt-cell"><div>🍊</div><div class="mt-name">Vit C</div><div class="mt-val" id="sVitC">2.5 mg</div></div>
+            <div class="mt-cell"><div>🩸</div><div class="mt-name">Iron</div><div class="mt-val" id="sIron">0.15 mg</div></div>
+          </div>
+          <p class="mt-note pink-note">Higher in calories, very little fiber or vitamins vs whole fruit.</p>
+        </div>
+      </div>
+
+    </div><!-- /.split-wrap -->
+
+    <div class="callout-strip yellow-strip">
+      <span>⭐</span>
+      <strong>BOTTOM LINE:</strong> Whole fruits nourish your body. Fruit smoothies? Enjoy sometimes, not all the time. 🍎⚖️🥤
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     SECTION 8 · FINAL TAKEAWAY
+══════════════════════════════════════════════ -->
+<section id="takeaway" class="takeaway-section fade-in">
+  <div class="takeaway-inner">
+    <div class="takeaway-icon">🌟</div>
+    <h2 class="takeaway-title">The Final Word</h2>
+    <p class="takeaway-body">Food labels and first impressions can be <strong>misleading</strong>. Looking at the data helps us understand what we are actually eating.</p>
+
+    <div class="takeaway-cards">
+      <div class="tc">
+        <div class="tc-icon">🔍</div>
+        <h4>Look at the Data</h4>
+        <p>Nutrition numbers don't lie. Always check what's actually in your food.</p>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">⚖️</div>
+        <h4>Compare Fairly</h4>
+        <p>Per 100g comparisons help you level the playing field between foods.</p>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">🧠</div>
+        <h4>Question Labels</h4>
+        <p>"Natural," "healthy," and "light" don't always mean what you think.</p>
+      </div>
+    </div>
+
+    <p class="takeaway-footer">Made with 🍎 data and curiosity &nbsp;|&nbsp; INST462 Data Visualization</p>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
