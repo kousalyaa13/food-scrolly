@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Looks Healthy... But Is It?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -19,7 +19,7 @@
   <div class="hero-inner">
     <div class="hero-text slide-left">
       <div class="hero-tag">🔍 DATA STORY · INST 462</div>
-      <h1 class="hero-title">Looks Healthy...<br><span class="green-text">But Is It?</span></h1>
+      <h1 class="hero-title">Think You Eat<br><span class="green-text">Healthy?</span></h1>
       <p class="hero-subtitle">A scrollytelling experience about food labels,<br>nutrition myths, and hidden assumptions.</p>
       <p class="hero-body">Some foods that <em>seem</em> healthy can have the same — or even more — calories, fat, and carbs as foods we already know are unhealthy. Let the data show you the truth.</p>
       <div class="scroll-cue">
@@ -30,16 +30,6 @@
 
     <div class="hero-visual slide-right">
       <img src="images/hero.png" alt="Colorful food cartoon illustration" class="hero-img">
-    </div>
-  </div>
-
-  <div class="hero-legend-bar fade-up">
-    <span class="legend-pill"><span class="dot dot-cal"></span>Calories (kcal)</span>
-    <span class="legend-pill"><span class="dot dot-fat"></span>Fat (g)</span>
-    <span class="legend-pill"><span class="dot dot-carb"></span>Carbs (g)</span>
-    <div class="legend-note">
-      <span class="bulb">💡</span>
-      All values are per <strong>100 grams</strong> of food
     </div>
   </div>
 </section>
@@ -53,11 +43,18 @@
     <div class="section-head slide-up">
       <h2 class="section-title">Looks Healthy... <span class="green-text">But Is It?</span></h2>
       <p class="section-sub">Some foods that <em>seem</em> healthy can have the same (or even more) calories, fat, and carbs as the foods we think are unhealthy.</p>
-      <div class="tip-float">
-        <span class="bulb">💡</span>
-        <span>All values are<br>per 100 grams<br>of food</span>
-      </div>
+     
     </div>
+    <div class="hero-legend-bar fade-up">
+    <span class="legend-pill"><span class="dot dot-cal"></span>Calories (kcal)</span>
+    <span class="legend-pill"><span class="dot dot-fat"></span>Fat (g)</span>
+    <span class="legend-pill"><span class="dot dot-carb"></span>Carbs (g)</span>
+    <div class="legend-note">
+      <span class="bulb">💡</span>
+      All values are per <strong>100 grams</strong> of food
+    </div>
+  </div>
+  <div style="height: 1.5rem;"></div>
 
     <div class="hook-cards">
 
@@ -163,6 +160,109 @@
         </div>
       </div>
 
+
+      <!-- Card 4 — Whole Milk -->
+      <div class="hook-card pop-in delay-1">
+        <img src="images/whole-milk.png" alt="Whole milk cartoon" class="food-illo">
+        <div class="food-badge red-badge">WHOLE MILK</div>
+        <div class="food-tag red-tag">(feared as unhealthy)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" data-width="12"></div></div>
+            <span class="n-val">61</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" data-width="10"></div></div>
+            <span class="n-val">3.3 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" data-width="9"></div></div>
+            <span class="n-val">4.8 g</span>
+          </div>
+        </div>
+        <div class="food-note">People switch to skim milk to "be healthier" — but is it necessary?</div>
+        <div class="hover-reveal">
+          <div class="hover-reveal-inner">
+            <span>🥛</span>
+            <p>Whole milk has <strong>fewer calories than flavored yogurt</strong> per 100g, plus calcium and vitamin D. The fat-free dairy fear? Mostly myth.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 — Orange Juice -->
+      <div class="hook-card pop-in delay-2">
+        <img src="images/orange-juice.png" alt="Orange juice cartoon" class="food-illo">
+        <div class="food-badge green-badge">ORANGE JUICE</div>
+        <div class="food-tag green-tag">(seems healthy!)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" data-width="10"></div></div>
+            <span class="n-val">47</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" data-width="1"></div></div>
+            <span class="n-val">0.2 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" data-width="15"></div></div>
+            <span class="n-val">10.4 g</span>
+          </div>
+        </div>
+        <div class="food-note">It's just fruit, right? No fiber. Just sugar and liquid calories.</div>
+        <div class="hover-reveal">
+          <div class="hover-reveal-inner">
+            <span>🍊</span>
+            <p>OJ has nearly the <strong>same sugar per 100g as Coca-Cola</strong> — with zero fiber to slow absorption. Eating the orange is a totally different story.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 — Caesar Salad Dressing -->
+      <div class="hook-card hook-card-red pop-in delay-3">
+        <img src="images/salad-dressing.png" alt="Caesar salad dressing cartoon" class="food-illo">
+        <div class="food-badge red-badge">CAESAR DRESSING</div>
+        <div class="food-tag red-tag">(the hidden villain)</div>
+        <div class="nutrient-list">
+          <div class="n-row">
+            <span class="n-icon">🔥</span>
+            <span class="n-name">Calories</span>
+            <div class="n-track"><div class="n-bar bar-cal" data-width="76"></div></div>
+            <span class="n-val">400</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">💧</span>
+            <span class="n-name">Fat</span>
+            <div class="n-track"><div class="n-bar bar-fat" data-width="100"></div></div>
+            <span class="n-val">40 g</span>
+          </div>
+          <div class="n-row">
+            <span class="n-icon">🌾</span>
+            <span class="n-name">Carbs</span>
+            <div class="n-track"><div class="n-bar bar-carb" data-width="5"></div></div>
+            <span class="n-val">3 g</span>
+          </div>
+        </div>
+        <div class="food-note food-note-red">You ordered a salad... but what's hiding in the dressing?</div>
+        <div class="hover-reveal hover-reveal-red">
+          <div class="hover-reveal-inner">
+            <span>🥗</span>
+            <p>Caesar dressing packs <strong>more fat per 100g than potato chips</strong>. Two tablespoons can add 200+ calories to your "healthy" salad.</p>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /.hook-cards -->
 
     <div class="callout-strip slide-up">
@@ -188,24 +288,34 @@
         </div>
         <div class="callout-strip">
           <span>🔍</span>
-          High calories doesn't always mean high fat. Hover the dots to explore every food!
+          Calories and fat are related, but the type of food matters a lot. Two foods can have similar calories but very different fat levels depending on their category. Hover the dots to explore every food!
         </div>
       </div>
       <div class="sidebar slide-right">
-        <div class="side-card tip-card">
-          <span class="big-bulb">💡</span>
-          <p>Each dot is a food item. Position shows its <strong>calories</strong> and <strong>fat</strong> per 100g.</p>
-        </div>
-        <div class="side-card blue-card">
-          <h4>KEY TAKEAWAY</h4>
-          <p>Calories and fat are related, but the <strong>type of food</strong> makes a big difference!</p>
-          <span>⭐</span>
-        </div>
-        <div class="side-card grey-card">
-          <h4>HOW TO READ</h4>
-          <div class="how-item">→ Right = more calories</div>
-          <div class="how-item">↑ Up = more fat</div>
-          <div class="how-item">🔵 Color = food group</div>
+        <div class="side-card scatter-insights-card">
+          <h4>WHAT YOU'RE SEEING 🔍</h4>
+          <ul class="scatter-insight-list">
+            <li>
+              <strong>🍎 Fruits &amp; Vegetables</strong> are generally the lowest in both calories and fat.
+              <span class="insight-arrow">→ They cluster near the bottom-left, meaning they are lighter and lower in fat.</span>
+            </li>
+            <li>
+              <strong>🍟 Snacks</strong> tend to be much higher in both calories and fat.
+              <span class="insight-arrow">→ Many points appear in the upper-right, showing they are more energy-dense.</span>
+            </li>
+            <li>
+              <strong>🥛 Dairy &amp; Grains</strong> fall somewhere in the middle.
+              <span class="insight-arrow">→ They have moderate calories and fat compared to other groups.</span>
+            </li>
+            <li>
+              <strong>🍗 Protein foods</strong> vary more than others.
+              <span class="insight-arrow">→ Some are higher in fat, while others stay lower, so they are more spread out.</span>
+            </li>
+            <li>
+              <strong>··· Other foods</strong> show the widest range.
+              <span class="insight-arrow">→ Some are extremely high in both, acting as outliers.</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -222,7 +332,6 @@
       <div class="categories-main slide-left">
         <div class="big-badge slide-up">🔭 BIG PICTURE</div>
         <h2 class="section-title slide-up">How Do Food Categories Compare?</h2>
-        <p class="section-sub-sm slide-up">Different food groups have different strengths (and weaknesses).<br>Explore the <mark>average nutrition per 100g</mark> across food categories.</p>
         <div class="nutrient-switcher slide-up">
           <p class="choose-label">CHOOSE A NUTRIENT TO COMPARE:</p>
           <div class="btn-row">
@@ -263,9 +372,11 @@
 </section>
 
 
+
 <!-- ══════════════════════════════════════════════
      SECTION 5 · EXPLORE FOODS
 ══════════════════════════════════════════════ -->
+<!--
 <section id="explore" class="explore-section">
   <div class="section-wrap">
     <div class="section-head slide-up">
@@ -321,11 +432,12 @@
     </div>
   </div>
 </section>
-
+-->
 
 <!-- ══════════════════════════════════════════════
      SECTION 6 · EXPECTATION vs REALITY
 ══════════════════════════════════════════════ -->
+<!--
 <section id="expectation" class="expectation-section">
   <div class="section-wrap">
     <div class="section-head centered-head slide-up">
@@ -374,10 +486,102 @@
     </div>
   </div>
 </section>
-
+-->
 
 <!-- ══════════════════════════════════════════════
-     SECTION 7 · FRUIT vs SMOOTHIE
+     SECTION 7 · BUILD YOUR OWN BOWL
+══════════════════════════════════════════════ -->
+<section id="bowl" class="bowl-section">
+  <div class="section-wrap">
+    <div class="centered-head slide-up">
+      <div class="big-badge">🥣 BUILD YOUR BOWL</div>
+      <h2 class="section-title">Build Your Own Bowl</h2>
+      <p class="section-sub">Pick a bowl, add ingredients, and watch your nutrition change in real time.</p>
+    </div>
+
+    <div class="bowl-type-row slide-up">
+      <button class="bowl-type-btn active" onclick="selectBowlType('fruit',this)">🍓 Fruit Bowl</button>
+      <button class="bowl-type-btn" onclick="selectBowlType('salad',this)">🥗 Salad Bowl</button>
+      <button class="bowl-type-btn" onclick="selectBowlType('hotpot',this)">🍲 Hotpot</button>
+    </div>
+
+    <div class="bowl-layout">
+
+      <!-- Left: ingredient picker -->
+      <div class="bowl-ingredients slide-left">
+        <h3 class="bowl-panel-title">Choose Ingredients</h3>
+        <p class="bowl-panel-sub">Tap to add · tap again to remove</p>
+        <div class="bowl-addon-note">🌟 <strong>Add-ons</strong> are the ones that sneak in the most calories!</div>
+        <div id="ingredientGrid" class="ingredient-grid"></div>
+      </div>
+
+      <!-- Center: bowl visual -->
+      <div class="bowl-visual-panel slide-up">
+        <div class="bowl-container">
+          <div id="bowlEmojis" class="bowl-emojis"></div>
+          <div class="bowl-dish">🥣</div>
+        </div>
+        <div id="bowlMessage" class="bowl-message">Add ingredients to start!</div>
+        <button class="bowl-reset-btn" onclick="resetBowl()">🗑️ Clear Bowl</button>
+      </div>
+
+      <!-- Right: nutrition totals -->
+      <div class="bowl-nutrition slide-right">
+        <h3 class="bowl-panel-title">Nutrition Total</h3>
+
+        <div class="bowl-stat-block">
+          <div class="bowl-stat-row">
+            <span class="bowl-stat-icon">🔥</span>
+            <span class="bowl-stat-label">Calories</span>
+            <span class="bowl-stat-spacer"></span>
+            <span id="bowlCal" class="bowl-stat-val">0</span>
+            <span class="bowl-stat-unit">kcal</span>
+          </div>
+          <div class="bowl-bar-track"><div id="bowlCalBar" class="bowl-bar bowl-bar-cal" style="width:0%"></div></div>
+        </div>
+
+        <div class="bowl-stat-block">
+          <div class="bowl-stat-row">
+            <span class="bowl-stat-icon">💧</span>
+            <span class="bowl-stat-label">Fat</span>
+            <span class="bowl-stat-spacer"></span>
+            <span id="bowlFat" class="bowl-stat-val">0</span>
+            <span class="bowl-stat-unit">g</span>
+          </div>
+          <div class="bowl-bar-track"><div id="bowlFatBar" class="bowl-bar bowl-bar-fat" style="width:0%"></div></div>
+        </div>
+
+        <div class="bowl-stat-block">
+          <div class="bowl-stat-row">
+            <span class="bowl-stat-icon">🌾</span>
+            <span class="bowl-stat-label">Carbs</span>
+            <span class="bowl-stat-spacer"></span>
+            <span id="bowlCarb" class="bowl-stat-val">0</span>
+            <span class="bowl-stat-unit">g</span>
+          </div>
+          <div class="bowl-bar-track"><div id="bowlCarbBar" class="bowl-bar bowl-bar-carb" style="width:0%"></div></div>
+        </div>
+
+        <div class="bowl-stat-block">
+          <div class="bowl-stat-row">
+            <span class="bowl-stat-icon">💪</span>
+            <span class="bowl-stat-label">Protein</span>
+            <span class="bowl-stat-spacer"></span>
+            <span id="bowlProt" class="bowl-stat-val">0</span>
+            <span class="bowl-stat-unit">g</span>
+          </div>
+          <div class="bowl-bar-track"><div id="bowlProtBar" class="bowl-bar bowl-bar-prot" style="width:0%"></div></div>
+        </div>
+
+        <div id="bowlInsight" class="bowl-insight">🌱 Your bowl is empty — pick some ingredients!</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECTION 8 · FRUIT vs SMOOTHIE
 ══════════════════════════════════════════════ -->
 <section id="fruitsplit" class="fruitsplit-section">
   <div class="section-wrap">
