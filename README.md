@@ -31,3 +31,6 @@ This project is a **scrollytelling website** that explores how food labels and a
 
 ## Data Source
 [Food Nutrition Dataset](https://www.kaggle.com/datasets/sonalshinde123/food-nutrition-dataset-150-everyday-foods)
+
+## Website
+[Scrollytelling Website](https://kousalyaa13.github.io/food-scrolly/)
