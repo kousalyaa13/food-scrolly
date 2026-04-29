@@ -481,7 +481,7 @@ function updateBowl() {
   let msg, insight, cls = '';
   if (selected.length === 0) {
     msg = 'Add ingredients to start!';
-    insight = '🌱 Your bowl is empty — pick some ingredients!';
+    insight = '🌱 Your bowl is empty, pick some ingredients!';
     cls = '';
   } else if (totalCal <= 150) {
     msg = '🌱 Light and refreshing!';
