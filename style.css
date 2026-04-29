@@ -65,7 +65,7 @@ section {
 #fruit-bg span {
   position: absolute;
   left: var(--x);
-  bottom: -80px;
+  top: 110vh;
   font-size: calc(1.6rem * var(--s));
   opacity: 0;
   animation: fruitFloat var(--dur) linear var(--d) infinite;
@@ -73,11 +73,11 @@ section {
 }
 
 @keyframes fruitFloat {
-  0%   { bottom: -80px; transform: translateX(0) rotate(0deg); opacity: 0; }
-  6%   { opacity: 0.22; }
-  50%  { transform: translateX(28px) rotate(14deg); opacity: 0.22; }
-  94%  { opacity: 0.22; }
-  100% { bottom: 105vh; transform: translateX(-18px) rotate(-10deg); opacity: 0; }
+  0%   { transform: translateY(0) translateX(0) rotate(0deg);          opacity: 0; }
+  5%   { opacity: 0.22; }
+  50%  { transform: translateY(-110vh) translateX(28px) rotate(14deg); opacity: 0.22; }
+  95%  { opacity: 0.22; }
+  100% { transform: translateY(-230vh) translateX(-18px) rotate(-10deg); opacity: 0; }
 }
 
 h1, h2, h3, h4 {
