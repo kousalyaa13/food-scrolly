@@ -485,7 +485,7 @@ function updateBowl() {
     cls = '';
   } else if (totalCal <= 150) {
     msg = '🌱 Light and refreshing!';
-    insight = '✅ Very light bowl — low in calories and fat. Great base!';
+    insight = '✅ Very light bowl! Low in calories and fat. Great base!';
     cls = 'good';
   } else if (totalCal <= 300) {
     msg = '😊 A balanced choice.';
@@ -494,12 +494,12 @@ function updateBowl() {
   } else if (totalCal <= 500) {
     msg = '📈 Calories are climbing...';
     insight = highFat.length
-      ? `⚠️ ${highFat.join(' & ')} ${highFat.length > 1 ? 'are' : 'is'} adding a lot of fat — add-ons add up fast!`
+      ? `⚠️ ${highFat.join(' & ')} ${highFat.length > 1 ? 'are' : 'is'} adding a lot of fat. Add-ons add up fast!`
       : '📈 Getting calorie-dense. Consider swapping an add-on for more fruit.';
     cls = '';
   } else if (totalCal <= 700) {
     msg = '⚠️ More than it looks!';
-    insight = `🔍 At ${Math.round(totalCal)} kcal, this rivals a full restaurant meal — mostly from the add-ons.`;
+    insight = `😲 At ${Math.round(totalCal)} kcal, this is almost a full restaurant meal! And most of it is coming from the add-ons.`;
     cls = 'warning';
   } else {
     msg = '🔥 This is a full meal!';
