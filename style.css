@@ -258,7 +258,7 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 .hero-inner { display: flex; align-items: center; gap: 64px; margin-bottom: 44px; }
 .hero-text { flex: 1; }
 .hero-visual { flex-shrink: 0; }
-.hero-img { width: 440px; max-width: 100%; border-radius: 24px; display: block; filter: drop-shadow(0 12px 32px rgba(0,0,0,0.15)); }
+.hero-img { width: clamp(480px, 48vw, 780px); max-width: 100%; border-radius: 24px; display: block; filter: drop-shadow(0 12px 32px rgba(0,0,0,0.15)); }
 
 .hero-tag {
   display: inline-block;
@@ -274,8 +274,8 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 .hero-subtitle { font-size: 1.2rem; color: #666; font-style: italic; margin-bottom: 14px; line-height: 1.5; }
 .hero-body     { font-size: 1.05rem; color: #555; line-height: 1.75; max-width: 520px; margin-bottom: 30px; }
 
-.scroll-cue { display: flex; flex-direction: column; gap: 6px; color: #999; font-size: 0.9rem; }
-.bounce-arrow { font-size: 1.6rem; animation: bounce 2s infinite; }
+.scroll-cue { display: flex; flex-direction: column; gap: 8px; color: #888; font-size: 1.15rem; font-weight: 700; }
+.bounce-arrow { font-size: 2.4rem; animation: bounce 2s infinite; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
 
 .hero-legend-bar {
@@ -790,136 +790,137 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 .bowl-insight.good    { background: #f0faf0; border-color: #80c880; color: #2a5a2a; }
 
 /* ════════════════════════════════════════════
-   SECTION 8 · FRUIT vs SMOOTHIE
+   SECTION 6 · DRINKING FRUIT ≠ EATING FRUIT — Slider
 ════════════════════════════════════════════ */
-.fruitsplit-section { background: white; }
 
-.split-wrap {
-  display: flex; gap: 0;
-  position: relative; align-items: stretch; margin-bottom: 20px;
+/* Centered slider wrapper */
+.df-slider-wrap {
+  max-width: 660px;
+  margin: 0 auto 32px;
 }
-.split-panel {
-  flex: 1; padding: 24px 22px; border-radius: var(--radius);
-  display: flex; flex-direction: column; gap: 14px; align-items: center;
+
+/* The white card */
+.df-slider-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 28px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
 }
-.split-green { background: #f0f8f0; border: 2.5px solid #90d890; }
-.split-pink  { background: #fff0f4; border: 2.5px solid #f0a0c0; }
 
-.split-header {
-  font-family: 'Fredoka', sans-serif; font-size: 1.15rem; font-weight: 700;
-  padding: 9px 18px; border-radius: 12px; width: 100%; text-align: center;
+/* Coloured accent bar at the top of the card */
+.df-accent-bar {
+  height: 6px;
+  background: #40c0c0;
+  transition: background 0.4s ease;
 }
-.sh-green { background: #d0f0d0; color: #1a6030; }
-.sh-pink  { background: #f8d0e0; color: #801840; }
+.df-accent-1 { background: #40c0c0; }
+.df-accent-2 { background: #f5a623; }
+.df-accent-3 { background: #e87070; }
+.df-accent-4 { background: #6abf6a; }
 
-.split-desc { font-size: 0.9rem; color: #555; line-height: 1.5; text-align: center; }
+/* Slide panels — hidden by default, shown when active */
+.df-slide {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 48px 40px;
+  gap: 20px;
+  flex: 1;
+  text-align: center;
+}
+.df-slide.df-active { display: flex; animation: dfFadeIn 0.38s ease; }
 
-.split-img { width: 200px; max-width: 100%; border-radius: 16px; display: block; margin: 0 auto; transition: transform 0.3s ease; }
-.split-img:hover { transform: scale(1.06); }
+@keyframes dfFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-.what-box { border-radius: var(--radius-sm); padding: 14px; width: 100%; }
-.wbox-green { background: white; border: 1.5px solid #90d890; }
-.wbox-pink  { background: white; border: 1.5px solid #f0a0c0; }
-.what-label { font-weight: 900; font-size: 0.76rem; letter-spacing: 0.05em; color: #555; margin-bottom: 8px; }
-.what-item  { display:flex; align-items:flex-start; gap:8px; font-size:0.84rem; margin:5px 0; line-height:1.4; }
-.what-item small { color:#888; display:block; }
+/* Step counter badge */
+.df-step-badge {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;
+  color: #bbb; text-transform: uppercase; margin-bottom: -8px;
+}
 
-.vs-badge {
-  flex-shrink: 0;
-  align-self: center;
-  width: 64px; height: 64px; background: white;
-  border-radius: 50%; border: 3px solid var(--border);
+/* Visual area — fixed height so card doesn't jump */
+.df-visual {
+  height: 190px;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 1rem;
-  z-index: 10; box-shadow: var(--shadow-sm);
+}
+.df-vis-img {
+  height: 170px; object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.13));
+  transition: transform 0.3s ease;
+}
+.df-vis-img:hover { transform: scale(1.05); }
+.df-vis-icon { font-size: 5rem; line-height: 1; }
+
+/* Slide 2 — nutrition truth table */
+.df-truth-card {
+  background: #fff8f0; border: 2px solid #f0d8a8;
+  border-radius: 14px; padding: 16px 22px;
+  display: flex; flex-direction: column; gap: 10px;
+  text-align: left; min-width: 260px;
+}
+.df-truth-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 0.88rem;
+}
+.df-truth-label { color: #666; font-weight: 600; }
+.df-truth-val   { font-weight: 800; color: #333; }
+.df-truth-val.bad  { color: #c04040; }
+.df-truth-val.warn { color: #c07000; }
+
+/* Slide 3 — time display */
+.df-time-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.df-time-emoji { font-size: 4.5rem; line-height: 1; }
+.df-time-pill {
+  background: #e87070; color: white; border-radius: 999px;
+  padding: 6px 20px; font-family: 'Fredoka', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
 }
 
-.mini-table { width: 100%; }
-.mt-label { font-weight: 900; font-size: 0.72rem; letter-spacing: 0.04em; color: #666; margin-bottom: 8px; }
-.mt-row { display: flex; gap: 6px; flex-wrap: wrap; }
-.mt-cell {
-  background: white; border-radius: 10px; padding: 7px 9px;
-  text-align: center; flex: 1; min-width: 58px;
-  border: 1.5px solid #e8e0d8;
-  transition: transform 0.25s ease;
+/* Slide title & text */
+.df-slide-title {
+  font-family: 'Fredoka', sans-serif; font-size: 1.75rem; font-weight: 800;
+  color: #222; line-height: 1.2; margin: 0;
 }
-.mt-cell:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
-.mt-name { font-size: 0.65rem; color: #aaa; margin: 2px 0; }
-.mt-val  { font-weight: 800; font-size: 0.8rem; color: #333; }
-.mt-note { font-size: 0.8rem; margin-top: 8px; font-style: italic; font-weight: 700; text-align: center; }
-.green-note { color: #2a7a3a; }
-.pink-note  { color: #b03060; }
-
-/* ════════════════════════════════════════════
-   SECTION 9 · DRINKING FRUIT ≠ EATING FRUIT
-════════════════════════════════════════════ */
-.drinkfruit-section { background: linear-gradient(160deg, #f0faf4 0%, #fdf8f0 100%); }
-
-/* Toggle section */
-.df-toggle-section {
-  background: white; border-radius: var(--radius); padding: 32px;
-  box-shadow: var(--shadow); margin-bottom: 28px;
-}
-.df-toggle-title {
-  font-family: 'Fredoka', sans-serif; font-size: 1.5rem; font-weight: 700;
-  text-align: center; margin-bottom: 20px; color: #333;
-}
-.df-toggle-row { display: flex; gap: 14px; justify-content: center; margin-bottom: 28px; }
-.df-toggle-btn {
-  font-family: 'Fredoka', sans-serif; font-size: 1.05rem; font-weight: 700;
-  padding: 12px 32px; border-radius: 999px; border: 2.5px solid #e8ddd0;
-  background: white; cursor: pointer; transition: all 0.2s; color: #666;
-}
-.df-toggle-btn:hover { border-color: #40c0c0; color: #207a7a; transform: translateY(-2px); }
-.df-toggle-btn.df-active { background: #40c0c0; border-color: #40c0c0; color: white; box-shadow: 0 4px 18px rgba(64,192,192,0.3); }
-
-.df-mode-panel { animation: fadeSlideUp 0.35s ease; }
-.df-hidden { display: none !important; }
-@keyframes fadeSlideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-
-/* Drink mode */
-.df-drink-display {
-  display: flex; align-items: center; gap: 32px;
-  background: linear-gradient(135deg, #e8faf4 0%, #f0f8ff 100%);
-  border-radius: var(--radius-sm); padding: 28px; border: 2px solid #b8e8d8;
-}
-.df-big-cup { font-size: 5rem; line-height: 1; flex-shrink: 0; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.12)); }
-.df-drink-name { font-family: 'Fredoka', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: #2a4a4a; }
-.df-drink-desc { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 14px; }
-.df-drink-stats { display: flex; gap: 10px; flex-wrap: wrap; }
-.df-dstat {
-  background: white; border: 1.5px solid #d0e8e0; border-radius: 999px;
-  padding: 5px 14px; font-size: 0.78rem; font-weight: 700; color: #2a5a5a;
+.df-slide-text {
+  font-size: 0.97rem; color: #555; line-height: 1.75;
+  max-width: 520px; margin: 0;
 }
 
-/* Eat mode */
-.df-eat-intro { font-size: 0.95rem; color: #555; margin-bottom: 20px; text-align: center; }
-.df-fruit-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px;
+/* Navigation row */
+.df-nav {
+  display: flex; align-items: center; justify-content: center; gap: 20px;
 }
-.df-fruit-card {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 14px 8px; border-radius: 16px; border: 2.5px solid #e8ddd0;
-  background: #fafaf8; cursor: pointer; transition: all 0.18s; text-align: center;
+.df-nav-btn {
+  font-family: 'Fredoka', sans-serif; font-size: 0.95rem; font-weight: 700;
+  padding: 10px 24px; border-radius: 999px; min-width: 96px;
+  border: 2.5px solid #e8ddd0; background: white;
+  cursor: pointer; color: #555; transition: all 0.2s;
 }
-.df-fruit-card:hover { border-color: #50aa60; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
-.df-fruit-card.df-fruit-selected { background: #e8f5e8; border-color: #50aa60; box-shadow: 0 0 0 3px rgba(80,170,96,0.2); }
-.df-fruit-emoji { font-size: 2rem; line-height: 1; }
-.df-fruit-name  { font-size: 0.72rem; font-weight: 700; color: #444; }
+.df-nav-btn:hover:not(:disabled) { border-color: #40c0c0; color: #207a7a; transform: translateY(-2px); }
+.df-nav-btn:disabled { opacity: 0.28; cursor: default; }
+.df-nav-next {
+  background: #40c0c0; border-color: #40c0c0; color: white;
+}
+.df-nav-next:hover:not(:disabled) { background: #2aacac !important; border-color: #2aacac !important; color: white !important; }
+.df-nav-next:disabled { background: #c8c8c8 !important; border-color: #c8c8c8 !important; }
 
-.df-plate-wrap { background: #fdf8f0; border-radius: var(--radius-sm); padding: 20px; border: 2px dashed #e0d0b8; margin-bottom: 18px; }
-.df-plate-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; color: #aaa; margin-bottom: 12px; }
-.df-plate { min-height: 64px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.df-plate-empty { color: #ccc; font-size: 0.85rem; font-style: italic; }
-.df-plate-fruit { font-size: 2rem; animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1); }
-.df-plate-msg {
-  margin-top: 12px; font-size: 0.85rem; font-weight: 700; color: #2a5a3a;
-  min-height: 22px; transition: all 0.3s;
+/* Progress dots */
+.df-dots { display: flex; gap: 8px; align-items: center; }
+.df-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #ddd; cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
 }
-.df-eat-note {
-  background: #f5f0ec; border-radius: var(--radius-sm); padding: 16px 20px;
-  font-size: 0.85rem; line-height: 1.65; color: #555; border-left: 4px solid #50aa60;
-}
+.df-dot.df-dot-active { background: #40c0c0; transform: scale(1.35); }
 
 /* ════════════════════════════════════════════
    SECTION 8 · TAKEAWAY (renumbered)
@@ -928,7 +929,7 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
   background: linear-gradient(140deg, #1e2030 0%, #2a1a3a 100%) !important;
   color: white; text-align: center;
 }
-.takeaway-inner { max-width: 960px; margin: 0 auto; padding: 100px 6%; }
+.takeaway-inner { max-width: 960px; margin: 0 auto; padding: 72px 7% 26px; }
 .takeaway-icon  { font-size: 4rem; margin-bottom: 18px; display: block; }
 .takeaway-title { font-family: 'Fredoka', cursive; font-size: 2.8rem; color: #ffd080; margin-bottom: 16px; font-weight: 800; }
 .takeaway-body  { font-size: 1.15rem; line-height: 1.75; color: #ddd; max-width: 660px; margin: 0 auto 48px; }
@@ -945,7 +946,17 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 .tc h4   { font-size: 1.1rem; color: #ffd080; margin-bottom: 8px; }
 .tc p    { font-size: 0.86rem; color: #b0b0c8; line-height: 1.5; }
 
-.takeaway-footer { font-size: 0.85rem; color: #60607a; }
+.takeaway-footer { font-size: 1.05rem; color: #9090a8; font-weight: 600; }
+
+.takeaway-final-msg {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #3eb83e;
+  line-height: 1.4;
+  margin: 0 auto 48px;
+  max-width: 700px;
+}
 
 /* ════════════════════════════════════════════
    RESPONSIVE
@@ -959,9 +970,10 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
   .side-card        { flex: 1; min-width: 200px; }
   .explore-layout   { flex-direction: column; }
   .explore-cats, .explore-foods-col { width: 100%; }
-  .split-wrap       { flex-direction: column; gap: 20px; }
-  .split-green, .split-pink { margin: 0; }
-  .vs-badge, .vs-circle { margin: 0 auto; }
+  .df-slider-wrap   { max-width: 100%; }
+  .df-slide         { padding: 28px 24px 32px; }
+  .df-visual        { height: 150px; }
+  .df-vis-img       { height: 130px; }
   .evr-layout       { flex-direction: column; }
   .tip-float        { position: static; margin-top: 16px; display: inline-flex; }
   .section-head     { padding-right: 0; }

@@ -512,73 +512,46 @@ function updateBowl() {
 }
 
 /* ════════════════════════════════════════════
-   DRINKING FRUIT ≠ EATING FRUIT
+   DRINKING FRUIT ≠ EATING FRUIT — Slider
 ════════════════════════════════════════════ */
-const dfPlateItems = new Set();
+let dfCurrent = 0;
+const DF_TOTAL = 4;
+const DF_ACCENTS = ['df-accent-1', 'df-accent-2', 'df-accent-3', 'df-accent-4'];
 
-function selectDFMode(mode, btn) {
-  document.querySelectorAll('.df-toggle-btn').forEach(b => b.classList.remove('df-active'));
-  btn.classList.add('df-active');
-  const drinkPanel = document.getElementById('dfDrinkPanel');
-  const eatPanel   = document.getElementById('dfEatPanel');
-  if (mode === 'drink') {
-    drinkPanel.classList.remove('df-hidden');
-    eatPanel.classList.add('df-hidden');
-  } else {
-    drinkPanel.classList.add('df-hidden');
-    eatPanel.classList.remove('df-hidden');
-  }
+function dfGoTo(idx) {
+  if (idx < 0 || idx >= DF_TOTAL) return;
+
+  document.getElementById('dfSlide' + dfCurrent).classList.remove('df-active');
+  dfCurrent = idx;
+  document.getElementById('dfSlide' + dfCurrent).classList.add('df-active');
+
+  // Update accent bar colour
+  const bar = document.getElementById('dfAccentBar');
+  if (bar) { bar.className = 'df-accent-bar ' + DF_ACCENTS[dfCurrent]; }
+
+  // Update dots
+  document.querySelectorAll('.df-dot').forEach((d, i) =>
+    d.classList.toggle('df-dot-active', i === dfCurrent)
+  );
+
+  // Update buttons
+  document.getElementById('dfBack').disabled = dfCurrent === 0;
+  const next = document.getElementById('dfNext');
+  next.disabled = dfCurrent === DF_TOTAL - 1;
+  next.textContent = dfCurrent === DF_TOTAL - 1 ? 'Done ✓' : 'Next →';
 }
 
-function toggleDFFruit(id, emoji, name) {
-  if (dfPlateItems.has(id)) {
-    dfPlateItems.delete(id);
-  } else {
-    dfPlateItems.add(id);
-  }
-  // Update card selected state
-  document.querySelectorAll('.df-fruit-card').forEach(card => {
-    const cardName = card.querySelector('.df-fruit-name').textContent;
-    if (cardName === name) card.classList.toggle('df-fruit-selected', dfPlateItems.has(id));
-  });
-  updateDFPlate();
-}
+function dfNav(dir) { dfGoTo(dfCurrent + dir); }
 
-function updateDFPlate() {
-  const plate = document.getElementById('dfPlate');
-  const msg   = document.getElementById('dfPlateMsg');
-  if (!plate) return;
-
-  // Rebuild plate from all selected fruits using stored data
-  const fruitData = [
-    { id:'mango',      emoji:'🥭', name:'Mango' },
-    { id:'orange',     emoji:'🍊', name:'Orange' },
-    { id:'banana',     emoji:'🍌', name:'Banana' },
-    { id:'apple',      emoji:'🍎', name:'Apple' },
-    { id:'pineapple',  emoji:'🍍', name:'Pineapple' },
-    { id:'strawberry', emoji:'🍓', name:'Strawberry' },
-  ];
-  const selected = fruitData.filter(f => dfPlateItems.has(f.id));
-
-  if (selected.length === 0) {
-    plate.innerHTML = '<span class="df-plate-empty">← pick some fruits</span>';
-    msg.textContent = '';
-    return;
-  }
-
-  plate.innerHTML = selected.map(f => `<span class="df-plate-fruit">${f.emoji}</span>`).join('');
-
-  const messages = [
-    '',
-    '🍽️ One piece of fruit — a quick snack.',
-    '🍽️ Two fruits — that\'s already a sizeable snack with texture and chewing.',
-    '🍽️ Three fruits — starting to feel like a proper fruit bowl!',
-    '🍽️ Four fruits — you can see how much fruit this would feel like compared to a single drink.',
-    '🍽️ Five fruits — this would take a while to eat. The drink takes 10 seconds.',
-    '🍽️ All six fruits — now imagine drinking all of this in one bottle. That\'s what fruit drinks can feel like to your body.'
-  ];
-  msg.textContent = messages[Math.min(selected.length, 6)];
-}
+// Keyboard arrow navigation (only when slider is in viewport)
+document.addEventListener('keydown', e => {
+  const wrap = document.getElementById('drinkfruit');
+  if (!wrap) return;
+  const r = wrap.getBoundingClientRect();
+  if (r.top > window.innerHeight || r.bottom < 0) return;
+  if (e.key === 'ArrowRight') dfNav(1);
+  if (e.key === 'ArrowLeft')  dfNav(-1);
+});
 
 /* ════════════════════════════════════════════
    UTILITIES
