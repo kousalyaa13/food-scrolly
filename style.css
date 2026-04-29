@@ -41,6 +41,45 @@ body {
   overflow-x: hidden;
 }
 
+/* ════════════════════════════════════════════
+   FLOATING FRUIT BACKGROUND
+════════════════════════════════════════════ */
+#fruit-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* All sections sit above the fruit layer but are transparent so fruits
+   show through gaps and padding — cards/tiles keep their opaque backgrounds */
+section {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+#fruit-bg span {
+  position: absolute;
+  left: var(--x);
+  bottom: -80px;
+  font-size: calc(1.6rem * var(--s));
+  opacity: 0;
+  animation: fruitFloat var(--dur) linear var(--d) infinite;
+  user-select: none;
+}
+
+@keyframes fruitFloat {
+  0%   { bottom: -80px; transform: translateX(0) rotate(0deg); opacity: 0; }
+  6%   { opacity: 0.22; }
+  50%  { transform: translateX(28px) rotate(14deg); opacity: 0.22; }
+  94%  { opacity: 0.22; }
+  100% { bottom: 105vh; transform: translateX(-18px) rotate(-10deg); opacity: 0; }
+}
+
 h1, h2, h3, h4 {
   font-family: 'Fredoka', 'Nunito', sans-serif;
   font-weight: 700;
@@ -75,7 +114,7 @@ h1, h2, h3, h4 {
 /* ════════════════════════════════════════════
    SHARED LAYOUT
 ════════════════════════════════════════════ */
-.section-wrap { max-width: 1200px; margin: 0 auto; padding: 88px 6%; }
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 56px 6%; }
 
 .section-head {
   margin-bottom: 38px;
@@ -191,7 +230,7 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 ════════════════════════════════════════════ */
 .hero-section {
   min-height: 100vh;
-  background: linear-gradient(140deg, #fff8ef 0%, #fff0d6 55%, #fde4b8 100%);
+  background: linear-gradient(140deg, rgba(255,248,239,0.92) 0%, rgba(255,240,214,0.92) 55%, rgba(253,228,184,0.92) 100%);
   padding: 64px 7%;
   display: flex;
   flex-direction: column;
@@ -763,8 +802,8 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
   flex: 1; padding: 24px 22px; border-radius: var(--radius);
   display: flex; flex-direction: column; gap: 14px; align-items: center;
 }
-.split-green { background: #f0f8f0; border: 2.5px solid #90d890; margin-right: 52px; }
-.split-pink  { background: #fff0f4; border: 2.5px solid #f0a0c0; margin-left:  52px; }
+.split-green { background: #f0f8f0; border: 2.5px solid #90d890; }
+.split-pink  { background: #fff0f4; border: 2.5px solid #f0a0c0; }
 
 .split-header {
   font-family: 'Fredoka', sans-serif; font-size: 1.15rem; font-weight: 700;
@@ -786,8 +825,8 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
 .what-item small { color:#888; display:block; }
 
 .vs-badge {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  align-self: center;
   width: 64px; height: 64px; background: white;
   border-radius: 50%; border: 3px solid var(--border);
   display: flex; align-items: center; justify-content: center;
@@ -886,7 +925,7 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
    SECTION 8 · TAKEAWAY (renumbered)
 ════════════════════════════════════════════ */
 .takeaway-section {
-  background: linear-gradient(140deg, #1e2030 0%, #2a1a3a 100%);
+  background: linear-gradient(140deg, #1e2030 0%, #2a1a3a 100%) !important;
   color: white; text-align: center;
 }
 .takeaway-inner { max-width: 960px; margin: 0 auto; padding: 100px 6%; }
@@ -922,7 +961,7 @@ mark { background: #ffe080; padding: 1px 5px; border-radius: 4px; }
   .explore-cats, .explore-foods-col { width: 100%; }
   .split-wrap       { flex-direction: column; gap: 20px; }
   .split-green, .split-pink { margin: 0; }
-  .vs-badge, .vs-circle { position: static; transform: none; margin: 0 auto; }
+  .vs-badge, .vs-circle { margin: 0 auto; }
   .evr-layout       { flex-direction: column; }
   .tip-float        { position: static; margin-top: 16px; display: inline-flex; }
   .section-head     { padding-right: 0; }
